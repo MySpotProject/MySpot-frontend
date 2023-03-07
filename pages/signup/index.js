@@ -6,7 +6,13 @@ export default function SignIn() {
     return (
         <div style={{ height: "100vh" }}>
             <Spacer size={"xl"} />
-            <div className="main__wrapper">
+            <div
+                className="main__wrapper"
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
                 <SignUpFrom />
             </div>
         </div>

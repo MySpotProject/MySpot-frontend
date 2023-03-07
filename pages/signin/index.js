@@ -5,9 +5,19 @@ import Spacer from "../../app/components/UI/spacer/spacer";
 export default function index() {
     return (
         <>
-            <div style={{ height: "100vh" }}>
+            <div
+                style={{
+                    height: "100vh",
+                }}
+            >
                 <Spacer size={"xl"} />
-                <div className="main__wrapper">
+                <div
+                    className="main__wrapper"
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
                     <SignIn />
                 </div>
             </div>

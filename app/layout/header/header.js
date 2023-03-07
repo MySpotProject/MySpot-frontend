@@ -1,40 +1,36 @@
 import React from "react";
-import styles from "./header.module.scss";
 import Image from "next/image";
 import images from "../../constants/images.js";
 import { useRouter } from "next/router";
+import styles from "./header.module.scss";
+import Link from "next/link.js";
 
 export default function Header() {
     const nav = [
-        { title: "Map", url: "map", type: "link" },
-        { title: "Tutorials", url: "tutorials", type: "link" },
-        { title: "About Us", url: "about", type: "link" },
+        { title: "Map", url: "/map" },
+        { title: "Tutorials", url: "/tutorials" },
+        { title: "About Us", url: "/about" },
     ];
-    const router = useRouter();
-    const handleClick = (e) => {
-        e.preventDefault();
-        router.push("/");
-    };
-
+    // const router = useRouter();
+    // const handleClick = (e) => {
+    //     e.preventDefault();
+    //     router.push("/");
+    // };
     return (
         <header className={styles.header}>
             <div className={`main__wrapper ${styles.header__items}`}>
                 <div className={styles.header__logo}>
-                    <a onClick={handleClick}>
+                    <Link
+                        href={"/"}
+                        // onClick={handleClick}
+                    >
                         <Image src={images.logo} alt={"logo"} />
-                    </a>
+                    </Link>
                 </div>
                 <ul>
                     {nav.map((item) => (
                         <li key={item.title}>
-                            <a
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    router.push(`${item.url}`);
-                                }}
-                            >
-                                {item.title}
-                            </a>
+                            <Link href={item.url}>{item.title}</Link>
                         </li>
                     ))}
                 </ul>
