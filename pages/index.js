@@ -2,12 +2,13 @@ import DefaultButton from "../app/components/UI/defaultButton/defaultButton";
 import Spacer from "../app/components/UI/spacer/spacer";
 import { useRouter } from "next/router";
 
-function HomePage() {
+export default function HomePage() {
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault();
         router.push("/signup");
     };
+
     return (
         <>
             <div className="main__wrapper">
@@ -20,4 +21,10 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+// export async function getServerSideProps() {
+//     const res = axios.get(process.env.NEXT_PUBLIC_API + "/auth/sign_in");
+//     const data = await res.data;
+//     console.log(data);
+
+//     return { props: { data } };
+// }

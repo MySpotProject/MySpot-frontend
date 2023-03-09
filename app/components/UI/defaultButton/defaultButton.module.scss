@@ -8,4 +8,7 @@
     letter-spacing: 2px;
     line-height: 80%;
     padding: 14px 24px;
+    &:disabled {
+        opacity: 0.6;
+    }
 }

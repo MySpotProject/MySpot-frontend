@@ -19,13 +19,9 @@ export default function SignUpFrom() {
             .then(function (response) {
                 console.log(response);
                 toast.success(`успешно!`);
-
-                setTimeout(() => {
-                    router.push(`/login`);
-                }, 300);
+                router.push(`/login`);
             })
             .catch(function (error) {
-                console.log(error);
                 toast.error(`${error?.response?.data?.errors?.full_messages}`);
             });
     };
@@ -36,14 +32,14 @@ export default function SignUpFrom() {
                 <Formik
                     initialValues={{
                         name: "kostamen",
-                        nickname: "sinshluhi",
+                        nickname: "kostamen2",
                         email: "",
                         password: "",
                     }}
                     validate={(values) => {
                         const errors = {};
                         if (!values.email) {
-                            errors.email = "Required";
+                            errors.email = "";
                         } else if (
                             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                                 values.email
@@ -51,6 +47,7 @@ export default function SignUpFrom() {
                         ) {
                             errors.email = "Invalid email address";
                         }
+
                         return errors;
                     }}
                 >
@@ -71,8 +68,8 @@ export default function SignUpFrom() {
                                 onBlur={handleBlur}
                                 value={values.email}
                                 placeholder="email address"
+                                errors={errors?.email?.length > 0 && "error"}
                             />
-                            {errors.email && touched.email && errors.email}
                             <Input
                                 type="password"
                                 name="password"
@@ -81,18 +78,21 @@ export default function SignUpFrom() {
                                 value={values.password}
                                 placeholder="password"
                             />
-                            {errors.password &&
-                                touched.password &&
-                                errors.password}
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
                                 type="default"
-                                disabled={isSubmitting}
+                                disabled={
+                                    errors.email ||
+                                    errors.email === "" ||
+                                    values.password === ""
+                                        ? true
+                                        : false
+                                }
                             >
                                 SIGN UP
                             </DefaultButton>
                             <div className={styles.link}>
-                                <Link href={"/signin"}>
+                                <Link href={"/login"}>
                                     you already have account?
                                 </Link>
                             </div>

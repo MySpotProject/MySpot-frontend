@@ -1,8 +1,8 @@
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
 import { toast } from "react-toastify";
 import DefaultButton from "../../UI/defaultButton/defaultButton";
 import Input from "../../UI/input/input";
@@ -13,18 +13,15 @@ export default function SignIn() {
 
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
+
         await axios
             .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
                 console.log(response);
-                toast.success(`успешно!`);
-
-                setTimeout(() => {
-                    router.push(`/`);
-                }, 300);
+                localStorage.setItem("token", response.headers.authorization);
+                router.push(`/`);
             })
             .catch(function (error) {
-                console.log(error);
                 toast.error(`${error?.response?.data?.errors}`);
             });
     };
@@ -39,7 +36,7 @@ export default function SignIn() {
                     validate={(values) => {
                         const errors = {};
                         if (!values.email) {
-                            errors.email = "Required";
+                            errors.email = "";
                         } else if (
                             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                                 values.email
@@ -47,6 +44,7 @@ export default function SignIn() {
                         ) {
                             errors.email = "Invalid email address";
                         }
+
                         return errors;
                     }}
                 >
@@ -67,8 +65,8 @@ export default function SignIn() {
                                 onBlur={handleBlur}
                                 value={values.email}
                                 placeholder="email address"
+                                errors={errors?.email?.length > 0 && "error"}
                             />
-                            {errors.email && touched.email && errors.email}
                             <Input
                                 type="password"
                                 name="password"
@@ -77,13 +75,17 @@ export default function SignIn() {
                                 value={values.password}
                                 placeholder="password"
                             />
-                            {errors.password &&
-                                touched.password &&
-                                errors.password}
+                            {console.log(errors?.password)}
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
                                 type="default"
-                                disabled={isSubmitting}
+                                disabled={
+                                    errors.email ||
+                                    errors.email === "" ||
+                                    values.password === ""
+                                        ? true
+                                        : false
+                                }
                             >
                                 LOGIN
                             </DefaultButton>

@@ -1,6 +1,10 @@
-import React from "react";
-import jwt_decode from "jwt-decode";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import userReducer from "./userReducer";
 
-export default function store() {
-    return <div>store</div>;
-}
+const rootReducer = combineReducers({
+    toolkit: userReducer,
+});
+
+export const userStore = configureStore({
+    reducer: rootReducer,
+});
