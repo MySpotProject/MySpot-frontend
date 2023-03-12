@@ -1,7 +1,7 @@
+"use client";
 import DefaultButton from "../app/components/UI/defaultButton/defaultButton";
 import Spacer from "../app/components/UI/spacer/spacer";
 import { useRouter } from "next/router";
-
 export default function HomePage() {
     const router = useRouter();
     const handleClick = (e) => {

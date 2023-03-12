@@ -7,19 +7,20 @@ import { toast } from "react-toastify";
 import DefaultButton from "../../UI/defaultButton/defaultButton";
 import Input from "../../UI/input/input";
 import styles from "./signinform.module.scss";
+import { setCookie } from "cookies-next";
 
 export default function SignIn() {
     const router = useRouter();
-
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
 
         await axios
-            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
+            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values, {})
             .then(function (response) {
                 console.log(response);
-                localStorage.setItem("token", response.headers.authorization);
-                router.push(`/`);
+                const token = response.headers.authorization;
+                setCookie("JWT", token);
+                router.push("/");
             })
             .catch(function (error) {
                 toast.error(`${error?.response?.data?.errors}`);

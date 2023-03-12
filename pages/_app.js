@@ -1,3 +1,4 @@
+"use client";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -10,17 +11,6 @@ import "../scss/index.scss";
 export default function App({ Component, pageProps }) {
     const router = useRouter();
 
-    setTimeout(() => {
-        const data = localStorage?.getItem("token");
-        if (!data && router.pathname === "/map") {
-            router.push("/signup");
-        }
-        if (data !== null) {
-            if (router.pathname === "/signup" || router.pathname === "/login") {
-                router.push("/");
-            }
-        }
-    }, 1);
     return (
         <>
             <Head>
