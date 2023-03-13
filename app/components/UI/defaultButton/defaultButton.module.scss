@@ -1,5 +1,4 @@
 .default {
-    transition: 0.2s;
     border: none;
     background-color: black;
     color: white;
@@ -8,7 +7,75 @@
     letter-spacing: 2px;
     line-height: 80%;
     padding: 14px 24px;
+    position: relative;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+
+    & > p {
+        mix-blend-mode: difference;
+    }
+
     &:disabled {
         opacity: 0.6;
+    }
+    &:has(.spinner) {
+        opacity: 0.9;
+        & > p {
+            visibility: hidden;
+        }
+    }
+    &::before {
+        transition: var(--transition-default);
+        content: "";
+        position: absolute;
+        top: 1%;
+        left: 0;
+        width: 0%;
+        height: 98%;
+        margin: 0 auto;
+        background-color: white;
+    }
+    &:hover::before {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.spinner {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 18%;
+    height: 64%;
+    width: auto;
+    & .path {
+        stroke: #ffffff;
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { Formik } from "formik";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { setCookie } from "cookies-next";
 
 export default function SignIn() {
     const router = useRouter();
+    const [spinner, setSpinner] = React.useState(false);
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
 
@@ -20,9 +21,11 @@ export default function SignIn() {
                 console.log(response);
                 const token = response.headers.authorization;
                 setCookie("JWT", token);
-                router.push("/");
+                setSpinner(true);
+                // router.push("/");
             })
             .catch(function (error) {
+                setSpinner(false);
                 toast.error(`${error?.response?.data?.errors}`);
             });
     };
@@ -65,7 +68,7 @@ export default function SignIn() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                placeholder="email address"
+                                placeholder="Email address"
                                 errors={errors?.email?.length > 0 && "error"}
                             />
                             <Input
@@ -74,12 +77,13 @@ export default function SignIn() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                placeholder="password"
+                                placeholder="Password"
                             />
                             {console.log(errors?.password)}
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
                                 type="default"
+                                spinner={spinner}
                                 disabled={
                                     errors.email ||
                                     errors.email === "" ||
@@ -88,7 +92,7 @@ export default function SignIn() {
                                         : false
                                 }
                             >
-                                LOGIN
+                                <p>LOGIN</p>
                             </DefaultButton>
                             <div className={styles.link}>
                                 <Link href={"/signup"}>

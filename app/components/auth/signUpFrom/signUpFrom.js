@@ -89,7 +89,7 @@ export default function SignUpFrom() {
                                         : false
                                 }
                             >
-                                SIGN UP
+                                <p>SIGN UP</p>
                             </DefaultButton>
                             <div className={styles.link}>
                                 <Link href={"/login"}>
