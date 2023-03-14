@@ -125,3 +125,11 @@ input {
     max-width: 1440px;
     margin: 0 auto;
 }
+
+.ymaps-2-1-79-map-copyrights-promo {
+    left: 0 !important;
+    bottom: 70px !important;
+}
+.ymaps-2-1-79-copyright__wrap {
+    transform: translateY(-70px);
+}

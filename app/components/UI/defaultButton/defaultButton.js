@@ -1,5 +1,5 @@
 import cn from "classnames";
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./defaultButton.module.scss";
 
 const DefaultButton = ({
@@ -11,9 +11,20 @@ const DefaultButton = ({
     disabled,
     spinner,
 }) => {
+    const btn = useRef(null);
+    const hover = useRef(null);
+
+    // btn.current.addEventListener("mouseover", () => {
+    //     hover.current.style.top = "0%";
+    // });
+    // btn.current.addEventListener("mouseleave", () => {
+    //     hover.current.style.top = "100%";
+    // });
+
     return (
         <>
             <button
+                ref={btn}
                 onClick={handleClick}
                 disabled={disabled}
                 className={cn(styles[type])}
@@ -22,6 +33,7 @@ const DefaultButton = ({
                     ...props,
                 }}
             >
+                <div ref={hover} className={styles.btn_hover}></div>
                 <svg
                     className={styles[spinner === true && "spinner"]}
                     viewBox="0 0 50 50"

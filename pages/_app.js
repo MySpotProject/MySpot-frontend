@@ -30,6 +30,8 @@ export default function App({ Component, pageProps }) {
                     sizes="144x144"
                     href="/icon.svg"
                 />
+                {/* <script src="http://api-maps.yandex.ru/3.0/?apikey=7066165f-a263-468f-9123-b4a3a32bdfb3&lang=ru_RU"></script> */}
+
                 {/* <script src="https://vk.com/js/api/openapi.js?168"></script> */}
                 {/* <script type="text/javascript">
                     VK.init( apiId: 7794785 );
