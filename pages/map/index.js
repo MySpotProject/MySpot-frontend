@@ -1,8 +1,27 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import { Map, YMaps } from "@pbe/react-yandex-maps";
 
 export default function index() {
+    useEffect(() => {
+        console.log(document.getElementById("map"));
+        ymaps3.ready.then(init);
+        const { YMap, YMapDefaultSchemeLayer, YMapControls, YMapListener } =
+            ymaps3;
+        function init() {
+            const map = new YMap(
+                document.getElementById("map"),
+                {
+                    location: {
+                        center: [37.64, 55.76],
+                        zoom: 14,
+                    },
+                },
+                [new YMapDefaultSchemeLayer()]
+            );
+        }
+    }, []);
+
     return (
         <>
             <Head>
@@ -13,19 +32,7 @@ export default function index() {
                 />
                 <meta property="og:title" content="MY SPOT" key="title" />
             </Head>
-            <YMaps
-                enterprise={false}
-                version="2.1"
-                query={{
-                    apikey: "7066165f-a263-468f-9123-b4a3a32bdfb3",
-                }}
-            >
-                <Map
-                    width={"100vw"}
-                    height={"100vh"}
-                    defaultState={{ center: [55.75, 37.57], zoom: 9 }}
-                />
-            </YMaps>
+            <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
         </>
     );
 }

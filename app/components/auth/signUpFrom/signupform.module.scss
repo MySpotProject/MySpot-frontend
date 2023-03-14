@@ -22,14 +22,13 @@
     gap: 24px;
 }
 .link {
-    & * {
+    position: relative;
+    & > * {
         font-size: 24px;
         transition: all 0.4s;
-        opacity: 0.4;
+        // opacity: 0.4;
         text-transform: uppercase;
         color: black;
-        &:hover {
-            opacity: 1;
-        }
+        position: relative;
     }
 }

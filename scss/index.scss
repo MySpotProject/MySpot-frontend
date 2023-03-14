@@ -10,6 +10,57 @@
     --dark-color: #505050;
 
     --transition-default: 0.5s all ease-in-out;
+
+    --link-animation: coverUp 0.3s ease forwards;
+}
+
+a {
+    &::before {
+        content: "";
+        position: absolute;
+        background-color: black;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        opacity: 0;
+    }
+    &:hover::before {
+        opacity: 1;
+        animation: var(--link-animation);
+    }
+    &::after {
+        content: "";
+        transition: opacity 0.3s;
+    }
+
+    &:hover::after {
+        opacity: 0;
+    }
+    &:hover {
+        opacity: 1;
+    }
+}
+
+@keyframes coverUp {
+    0% {
+        transform-origin: 50% 100%;
+        transform: scale3d(1, 0.045, 1);
+    }
+
+    50% {
+        transform-origin: 50% 100%;
+        transform: scale3d(1, 1, 1);
+    }
+
+    51% {
+        transform-origin: 50% 0%;
+        transform: scale3d(1, 1, 1);
+    }
+
+    100% {
+        transform-origin: 50% 0%;
+        transform: scale3d(1, 0.045, 1);
+    }
 }
 
 *,
@@ -93,14 +144,14 @@ select {
     font: inherit;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
+// @media (prefers-reduced-motion: reduce) {
+//     * {
+//         animation-duration: 0.01ms !important;
+//         animation-iteration-count: 1 !important;
+//         transition-duration: 0.01ms !important;
+//         scroll-behavior: auto !important;
+//     }
+// }
 
 html * {
     box-sizing: border-box;
