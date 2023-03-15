@@ -11,14 +11,15 @@
 
     --transition-default: 0.5s all ease-in-out;
 
-    --link-animation: coverUp 0.3s ease forwards;
+    --link-animation: coverUp 0.4s ease-in-out forwards;
 }
 
 a {
     &::before {
         content: "";
         position: absolute;
-        background-color: black;
+        background-color: rgb(255, 255, 255);
+        mix-blend-mode: difference;
         height: 100%;
         width: 100%;
         top: 0;
@@ -59,7 +60,7 @@ a {
 
     100% {
         transform-origin: 50% 0%;
-        transform: scale3d(1, 0.045, 1);
+        transform: scale3d(1, 0, 1);
     }
 }
 
@@ -109,10 +110,8 @@ html {
 body {
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
     background-color: black;
     font-family: "HumaneMed";
-    line-height: 100%;
 }
 *::selection {
     color: rgb(255, 255, 255);

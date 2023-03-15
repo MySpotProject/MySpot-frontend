@@ -1,26 +1,26 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\volgodonsk532\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add cockie
+  /home/webjox/.nvm/versions/node/v19.0.1/bin/node /home/webjox/.nvm/versions/node/v19.0.1/bin/yarn add webpack-dev-server webpack-cli webpackhtml-webpack-plugin
 
 PATH: 
-  C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\15\bin;C:\Users\volgodonsk532\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\volgodonsk532\AppData\Local\Microsoft\WindowsApps;C:\Users\volgodonsk532\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\volgodonsk532\.dotnet\tools;C:\Users\volgodonsk532\AppData\Local\GitHubDesktop\bin;C:\Users\volgodonsk532\AppData\Roaming\npm;C:\Users\volgodonsk532\AppData\Roaming\nvm;C:\Program Files\nodejs
+  /home/webjox/.local/bin:/home/webjox/.nvm/versions/node/v19.0.1/bin:/home/webjox/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  19.1.0
+  19.0.1
 
 Platform: 
-  win32 x64
+  linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/cockie: Not found
-      at params.callback [as _callback] (C:\Users\volgodonsk532\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
-      at self.callback (C:\Users\volgodonsk532\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+  Error: https://registry.yarnpkg.com/webpackhtml-webpack-plugin: Not found
+      at params.callback [as _callback] (/home/webjox/.nvm/versions/node/v19.0.1/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at self.callback (/home/webjox/.nvm/versions/node/v19.0.1/lib/node_modules/yarn/lib/cli.js:140890:22)
       at Request.emit (node:events:513:28)
-      at Request.<anonymous> (C:\Users\volgodonsk532\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.<anonymous> (/home/webjox/.nvm/versions/node/v19.0.1/lib/node_modules/yarn/lib/cli.js:141862:10)
       at Request.emit (node:events:513:28)
-      at IncomingMessage.<anonymous> (C:\Users\volgodonsk532\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at IncomingMessage.<anonymous> (/home/webjox/.nvm/versions/node/v19.0.1/lib/node_modules/yarn/lib/cli.js:141784:12)
       at Object.onceWrapper (node:events:627:28)
       at IncomingMessage.emit (node:events:525:35)
       at endReadableNT (node:internal/streams/readable:1359:12)
@@ -42,18 +42,31 @@ npm manifest:
       "author": "",
       "license": "ISC",
       "dependencies": {
+          "@pbe/react-yandex-maps": "^1.2.2",
           "@reduxjs/toolkit": "^1.9.2",
           "@types/axios": "^0.14.0",
           "axios": "^1.3.2",
+          "classnames": "^2.3.2",
+          "cookie": "^0.5.0",
+          "cookies-next": "^2.1.1",
           "formik": "^2.2.9",
           "framer-motion": "^9.0.1",
+          "jose": "^4.13.1",
           "jsonwebtoken": "^9.0.0",
+          "jwt-decode": "^3.1.2",
           "next": "^13.1.6",
           "react": "^18.2.0",
           "react-dom": "^18.2.0",
+          "react-toastify": "^9.1.1",
           "sass": "^1.58.0",
           "yarn": "^1.22.19"
-      }
+      },
+      "proxy": {
+          "*": {
+              "target": "http://myurl"
+          }
+      },
+      "homepage": "http://site.ru"
   }
 
 yarn manifest: 
@@ -206,6 +219,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.1.6.tgz#17ed919c723426b7d0ce1cd73d40ce3dcd342089"
     integrity sha512-Ls2OL9hi3YlJKGNdKv8k3X/lLgc3VmLG3a/DeTkAd+lAituJp8ZHmRmm9f9SL84fT3CotlzcgbdaCDfFwFA6bA==
   
+  "@pbe/react-yandex-maps@^1.2.2":
+    version "1.2.2"
+    resolved "https://registry.yarnpkg.com/@pbe/react-yandex-maps/-/react-yandex-maps-1.2.2.tgz#bc0b2c4d88eb8dc0a45e5f9206897ed2bc9cb05a"
+    integrity sha512-2XT6XQ5MsrvDQWWy8whPRm/2wDbTdtABUERlTTU9IAJAvN2feJqNegKwbaEBIjrx1QcFlgsFAaBMN3DDp7SEBw==
+    dependencies:
+      "@types/yandex-maps" "2.1.28"
+  
   "@reduxjs/toolkit@^1.9.2":
     version "1.9.2"
     resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.9.2.tgz#4cd153491118038e2eebcb63b2264e42a8a2d74c"
@@ -229,6 +249,21 @@ Lockfile:
     integrity sha512-KqQnQbdYE54D7oa/UmYVMZKq7CO4l8DEENzOKc4aBRwxCXSlJXGz83flFx5L7AWrOQnmuN3kVsRdt+GZPPjiVQ==
     dependencies:
       axios "*"
+  
+  "@types/cookie@^0.4.1":
+    version "0.4.1"
+    resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.4.1.tgz#bfd02c1f2224567676c1545199f87c3a861d878d"
+    integrity sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==
+  
+  "@types/node@^16.10.2":
+    version "16.18.14"
+    resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.14.tgz#5465ce598486a703caddbefe8603f8a2cffa3461"
+    integrity sha512-wvzClDGQXOCVNU4APPopC2KtMYukaF1MN/W3xAmslx22Z4/IF1/izDMekuyoUlwfnDHYCIZGaj7jMwnJKBTxKw==
+  
+  "@types/yandex-maps@2.1.28":
+    version "2.1.28"
+    resolved "https://registry.yarnpkg.com/@types/yandex-maps/-/yandex-maps-2.1.28.tgz#1a1bfc633188504acc03f8c0998f65470db7f795"
+    integrity sha512-thMdTP38GxFhdYrgEv0p8i4k2NgI8uVkjijHU97HbMQZ+83bBLJODVbdGnQxHO0+EhwQIusuLVJux782FTT5yw==
   
   anymatch@~3.1.2:
     version "3.1.3"
@@ -289,10 +324,20 @@ Lockfile:
     optionalDependencies:
       fsevents "~2.3.2"
   
+  classnames@^2.3.2:
+    version "2.3.2"
+    resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+    integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+  
   client-only@0.0.1:
     version "0.0.1"
     resolved "https://registry.yarnpkg.com/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
     integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
+  
+  clsx@^1.1.1:
+    version "1.2.1"
+    resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+    integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
   
   combined-stream@^1.0.8:
     version "1.0.8"
@@ -300,6 +345,25 @@ Lockfile:
     integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
     dependencies:
       delayed-stream "~1.0.0"
+  
+  cookie@^0.4.0:
+    version "0.4.2"
+    resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.2.tgz#0e41f24de5ecf317947c82fc789e06a884824432"
+    integrity sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==
+  
+  cookie@^0.5.0:
+    version "0.5.0"
+    resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
+    integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
+  
+  cookies-next@^2.1.1:
+    version "2.1.1"
+    resolved "https://registry.yarnpkg.com/cookies-next/-/cookies-next-2.1.1.tgz#8d82f1b78fccfb19d9d7c26766fa5707a3ec4695"
+    integrity sha512-AZGZPdL1hU3jCjN2UMJTGhLOYzNUN9Gm+v8BdptYIHUdwz397Et1p+sZRfvAl8pKnnmMdX2Pk9xDRKCGBum6GA==
+    dependencies:
+      "@types/cookie" "^0.4.1"
+      "@types/node" "^16.10.2"
+      cookie "^0.4.0"
   
   deepmerge@^2.1.1:
     version "2.2.1"
@@ -421,6 +485,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
     integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
   
+  jose@^4.13.1:
+    version "4.13.1"
+    resolved "https://registry.yarnpkg.com/jose/-/jose-4.13.1.tgz#449111bb5ab171db85c03f1bd2cb1647ca06db1c"
+    integrity sha512-MSJQC5vXco5Br38mzaQKiq9mwt7lwj2eXpgpRyQYNHYt2lq1PjkWa7DLXX0WVcQLE9HhMh3jPiufS7fhJf+CLQ==
+  
   "js-tokens@^3.0.0 || ^4.0.0":
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -452,6 +521,11 @@ Lockfile:
     dependencies:
       jwa "^1.4.1"
       safe-buffer "^5.0.1"
+  
+  jwt-decode@^3.1.2:
+    version "3.1.2"
+    resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+    integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
   
   lodash-es@^4.17.21:
     version "4.17.21"
@@ -570,6 +644,13 @@ Lockfile:
     version "16.13.1"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+  
+  react-toastify@^9.1.1:
+    version "9.1.1"
+    resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.1.tgz#9280caea4a13dc1739c350d90660a630807bf10b"
+    integrity sha512-pkFCla1z3ve045qvjEmn2xOJOy4ZciwRXm1oMPULVkELi5aJdHCN/FHnuqXq8IwGDLB7PPk2/J6uP9D8ejuiRw==
+    dependencies:
+      clsx "^1.1.1"
   
   react@^18.2.0:
     version "18.2.0"
