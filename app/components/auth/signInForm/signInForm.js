@@ -16,11 +16,11 @@ export default function SignIn() {
         event.preventDefault();
 
         await axios
-            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values, {})
+            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
                 console.log(response);
                 const token = response.headers.authorization;
-                setCookie("JWT", token);
+                // setCookie("JWT", token);
                 setSpinner(true);
                 // router.push("/");
             })
