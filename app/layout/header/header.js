@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import images from "../../constants/images.js";
-import { useRouter } from "next/router";
 import styles from "./header.module.scss";
 import Link from "next/link.js";
 
@@ -11,19 +10,12 @@ export default function Header() {
         { title: "Tutorials", url: "/tutorials" },
         { title: "About Us", url: "/about" },
     ];
-    // const router = useRouter();
-    // const handleClick = (e) => {
-    //     e.preventDefault();
-    //     router.push("/");
-    // };
+
     return (
         <header className={styles.header}>
             <div className={`main__wrapper ${styles.header__items}`}>
                 <div className={styles.header__logo}>
-                    <Link
-                        href={"/"}
-                        // onClick={handleClick}
-                    >
+                    <Link href={"/"}>
                         <Image src={images.logo} alt={"logo"} />
                     </Link>
                 </div>

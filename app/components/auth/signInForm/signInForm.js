@@ -7,22 +7,33 @@ import { toast } from "react-toastify";
 import DefaultButton from "../../UI/defaultButton/defaultButton";
 import Input from "../../UI/input/input";
 import styles from "./signinform.module.scss";
-import { setCookie } from "cookies-next";
+import { serialize } from "cookie";
 
-export default function SignIn() {
+export default function SignIn(req, res) {
     const router = useRouter();
     const [spinner, setSpinner] = React.useState(false);
+
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
-
+        setSpinner(true);
         await axios
-            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
+            .post("/api/auth/login", values)
+            // .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
                 console.log(response);
-                const token = response.headers.authorization;
-                // setCookie("JWT", token);
-                setSpinner(true);
+                setSpinner(false);
                 // router.push("/");
+                // const serialised = serialize("JWT", token, {
+                //     httpOnly: true,
+                //     secure: process.env.NODE_ENV !== "production",
+                //     sameSite: "strict",
+                //     maxAge: 60 * 60 * 24 * 30, //30 days
+                //     path: "/",
+                // });
+
+                // res.setHeader("Set-Cookie", serialised);
+
+                // const token = response.headers.authorization;
             })
             .catch(function (error) {
                 setSpinner(false);
@@ -79,7 +90,6 @@ export default function SignIn() {
                                 value={values.password}
                                 placeholder="Password"
                             />
-                            {console.log(errors?.password)}
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
                                 type="default"

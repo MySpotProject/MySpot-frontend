@@ -1,7 +1,7 @@
 import { jwtVerify, SignJWT } from "jose";
 
 export const getJwtSecretKey = () => {
-    const secret = process.env.NEXT_SECRET_JWT;
+    const secret = process.env.NEXT_SECRET;
 
     if (!secret || secret.length === 0) {
         throw new Error("secret key is not set");
