@@ -22,9 +22,16 @@ export default function SignIn() {
             .post("/api/auth/login", values)
             .then(function (response) {
                 setSpinner(false);
-                router.push("/");
+                console.log(response);
+                if (response.data?.error?.message) {
+                    toast.error(`Неверная почта или пароль`);
+                    return;
+                } else {
+                    router.push("/");
+                }
             })
             .catch(function (error) {
+                console.log("err", error);
                 setSpinner(false);
             });
     };

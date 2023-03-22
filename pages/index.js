@@ -7,7 +7,7 @@ export default function HomePage() {
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault();
-        router.push("/api");
+        router.push("/signup");
     };
 
     return (
