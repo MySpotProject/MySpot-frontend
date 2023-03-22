@@ -25,15 +25,8 @@ export async function middleware(req = NextRequest) {
     if (!verifiedToken) {
         return NextResponse.redirect(new URL("/signup", req.url));
     }
-
-    if (req.url.includes("/api")) {
-        return NextResponse.redirect(new URL("/", req.url));
-    }
-    if (req.nextUrl.pathname.startsWith("/api")) {
-        return;
-    }
 }
 
 export const config = {
-    matcher: ["/map", "/login", "/signup", "/api", "/api/:path*"],
+    matcher: ["/login", "/signup"],
 };
