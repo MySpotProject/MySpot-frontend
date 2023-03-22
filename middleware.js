@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { verifyAuth } from "./app/lib/auth";
 
 export async function middleware(req = NextRequest) {
-    const token = req.cookies.get("JWT")?.value;
+    const token = req.cookies.get("MySpot_JWT")?.value;
     const verifiedToken =
         token &&
         (await verifyAuth(token).catch((err) => {
@@ -15,6 +15,7 @@ export async function middleware(req = NextRequest) {
     if (req.nextUrl.pathname.startsWith("/signup") && !verifiedToken) {
         return;
     }
+
     if (req.url.includes("/signup") && verifiedToken) {
         return NextResponse.redirect(new URL("/", req.url));
     }
@@ -24,8 +25,15 @@ export async function middleware(req = NextRequest) {
     if (!verifiedToken) {
         return NextResponse.redirect(new URL("/signup", req.url));
     }
+
+    if (req.url.includes("/api")) {
+        return NextResponse.redirect(new URL("/", req.url));
+    }
+    if (req.nextUrl.pathname.startsWith("/api")) {
+        return;
+    }
 }
 
 export const config = {
-    matcher: ["/map", "/login", "/signup"],
+    matcher: ["/map", "/login", "/signup", "/api", "/api/:path*"],
 };

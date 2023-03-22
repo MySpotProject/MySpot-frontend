@@ -22,6 +22,7 @@ export default function SignUpFrom() {
                 router.push(`/login`);
             })
             .catch(function (error) {
+                console.log(error);
                 toast.error(`${error?.response?.data?.errors?.full_messages}`);
             });
     };

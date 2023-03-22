@@ -8,36 +8,24 @@ import DefaultButton from "../../UI/defaultButton/defaultButton";
 import Input from "../../UI/input/input";
 import styles from "./signinform.module.scss";
 import { serialize } from "cookie";
+import { sign } from "jsonwebtoken";
+import { setCookie } from "cookies-next";
 
-export default function SignIn(req, res) {
+export default function SignIn() {
     const router = useRouter();
     const [spinner, setSpinner] = React.useState(false);
-
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
         setSpinner(true);
+
         await axios
             .post("/api/auth/login", values)
-            // .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
-                console.log(response);
                 setSpinner(false);
-                // router.push("/");
-                // const serialised = serialize("JWT", token, {
-                //     httpOnly: true,
-                //     secure: process.env.NODE_ENV !== "production",
-                //     sameSite: "strict",
-                //     maxAge: 60 * 60 * 24 * 30, //30 days
-                //     path: "/",
-                // });
-
-                // res.setHeader("Set-Cookie", serialised);
-
-                // const token = response.headers.authorization;
+                router.push("/");
             })
             .catch(function (error) {
                 setSpinner(false);
-                toast.error(`${error?.response?.data?.errors}`);
             });
     };
     return (
