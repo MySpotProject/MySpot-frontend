@@ -1,8 +1,11 @@
 "use client";
-import DefaultButton from "../app/components/UI/defaultButton/defaultButton";
 import Spacer from "../app/components/UI/spacer/spacer";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import cn from "classnames";
+import styles from "./main.module.scss";
+import images from "../app/constants/images";
+
 export default function HomePage() {
     const router = useRouter();
     const handleClick = (e) => {
@@ -12,11 +15,17 @@ export default function HomePage() {
 
     return (
         <>
-            <div className="main__wrapper">
-                <Spacer size={"xl"} />
-                <DefaultButton handleClick={handleClick} type={"default"}>
-                    THE LUPPA
-                </DefaultButton>
+            <div className={styles.wrapper}>
+                {/* <div className={styles.left__side}>
+                    <Image src={images.railingLeft} alt="railingLeft" />
+                </div> */}
+                <div className={styles.main}>
+                    <Image src={images.logo} alt="Logo" />
+                </div>
+                <Image className={styles.railings} src={images.railings} />
+                {/* <div className={styles.right__side}> */}
+                {/* <Image src={images.railingRight} alt="railingRight" /> */}
+                {/* </div> */}
             </div>
         </>
     );
