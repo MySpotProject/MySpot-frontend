@@ -1,21 +1,29 @@
 "use client";
 import Head from "next/head";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import images from "../../app/constants/images";
 
 export default function index() {
-    useEffect(() => {
+    React.useEffect(() => {
         window.map = null;
         ymaps3.ready.then(init);
+
         const {
             YMap,
             YMapDefaultSchemeLayer,
             YMapControls,
             YMapDefaultFeaturesLayer,
             YMapMarker,
+            geolocation,
         } = ymaps3;
         async function init() {
+            var location = geolocation.getPosition();
+            var coords;
+            location.then(function (res) {
+                console.log(res.coords);
+                coords = res.coords;
+            });
             const { YMapGeolocationControl } = await ymaps3.import(
                 "@yandex/ymaps3-controls@0.0.1"
             );
@@ -25,7 +33,7 @@ export default function index() {
 
             map = new YMap(document.getElementById("map"), {
                 location: {
-                    center: [37.64, 55.76],
+                    center: coords === undefined ? [37.64, 55.76] : coords,
                     zoom: 16,
                 },
             });
@@ -41,6 +49,13 @@ export default function index() {
                     new YMapGeolocationControl({})
                 )
             );
+
+            // let lol = geolocation.getPosition;
+            // lol.then(function (result) {
+            //     console.log(result);
+            // });
+
+            // console.log(new YMapGeolocationControl;
             const el = document.createElement("img");
             el.className = "myMarker";
             el.src = "./pin.svg";

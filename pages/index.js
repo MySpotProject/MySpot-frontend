@@ -10,7 +10,7 @@ export default function HomePage() {
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault();
-        router.push("/signup");
+        router.push("/map");
     };
 
     return (
@@ -19,7 +19,7 @@ export default function HomePage() {
                 {/* <div className={styles.left__side}>
                     <Image src={images.railingLeft} alt="railingLeft" />
                 </div> */}
-                <div className={styles.main}>
+                <div className={styles.main} onClick={handleClick}>
                     <Image src={images.logo} alt="Logo" />
                 </div>
                 <Image className={styles.railings} src={images.railings} />
