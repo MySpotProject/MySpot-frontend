@@ -1,6 +1,6 @@
 import React from "react";
-import SignIn from "../../app/components/auth/signInForm/signInForm";
-import Spacer from "../../app/components/UI/spacer/spacer";
+import Spacer from "components/UI/spacer/spacer";
+import SignIn from "components/SignInForm/signInForm";
 
 export default function index() {
     return (

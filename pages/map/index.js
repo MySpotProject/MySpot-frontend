@@ -1,8 +1,7 @@
-"use client";
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
-import images from "../../app/constants/images";
+import images from "constants/images";
 
 export default function index() {
     React.useEffect(() => {
@@ -62,7 +61,6 @@ export default function index() {
             map.addChild(new YMapMarker({ coordinates: [37.64, 55.76] }, el));
         }
     }, []);
-    // ymaps3x0--marker
     return (
         <>
             <Head>

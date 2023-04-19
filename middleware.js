@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { verifyAuth } from "./app/lib/auth";
+import { verifyAuth } from "./lib/auth";
+// import { verifyAuth } from "./lib/auth";
 
 export async function middleware(req = NextRequest) {
     const token = req.cookies.get("MySpot_JWT")?.value;
+    console.log(token);
     const verifiedToken =
         token &&
         (await verifyAuth(token).catch((err) => {

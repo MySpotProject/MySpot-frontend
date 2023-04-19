@@ -1,6 +1,6 @@
 import React from "react";
-import SignUpFrom from "../../app/components/auth/signUpFrom/signUpFrom";
-import Spacer from "../../app/components/UI/spacer/spacer";
+import Spacer from "components/UI/spacer/spacer";
+import SignUpFrom from "/components/SignUpFrom/signUpFrom";
 
 export default function SignIn() {
     return (

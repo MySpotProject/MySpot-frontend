@@ -1,7 +1,6 @@
-@import "variables";
-@import url("../app/fonts/Humane-Light.css");
-@import url("../app/fonts/Humane-Bold.css");
-@import url("../app/fonts/Humane-Medium.css");
+@import url("assets/fonts/Humane-Light.css");
+@import url("assets/fonts/Humane-Bold.css");
+@import url("assets/fonts/Humane-Medium.css");
 
 :root {
     --bg-color-white: white;
@@ -12,6 +11,13 @@
     --transition-default: 0.5s all ease-in-out;
 
     --link-animation: coverUp 0.4s ease-in-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: smooth !important;
+        animation-timing-function: ease-in-out !important;
+    }
 }
 
 a {
@@ -75,15 +81,6 @@ ol[class] {
     padding: 0;
 }
 
-input {
-    outline: none;
-}
-input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 50px #ffffff !important; /* Цвет фона */
-    -webkit-text-fill-color: #000000 !important; /* цвет текста */
-    color: #000000 !important; /* цвет текста */
-}
-
 body,
 h1,
 h2,
@@ -143,15 +140,6 @@ select {
     font: inherit;
 }
 
-// @media (prefers-reduced-motion: reduce) {
-//     * {
-//         animation-duration: 0.01ms !important;
-//         animation-iteration-count: 1 !important;
-//         transition-duration: 0.01ms !important;
-//         scroll-behavior: auto !important;
-//     }
-// }
-
 html * {
     box-sizing: border-box;
 }
@@ -175,6 +163,7 @@ input {
     max-width: 1440px;
     margin: 0 auto;
 }
+
 .ymaps3x0--map-copyrights_bottom {
     bottom: 68px !important;
 }

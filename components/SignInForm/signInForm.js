@@ -1,41 +1,44 @@
+import React from "react";
 import axios from "axios";
 import { Formik } from "formik";
-import { useRouter } from "next/router";
-import React from "react";
-import DefaultButton from "../../UI/defaultButton/defaultButton";
-import Input from "../../UI/input/input";
-import { toast } from "react-toastify";
-
-import styles from "./signupform.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import DefaultButton from "../UI/defaultButton/defaultButton";
+import Input from "../UI/input/input";
+import styles from "./signinform.module.scss";
 
-export default function SignUpFrom() {
+export default function SignIn() {
     const router = useRouter();
-
+    const [spinner, setSpinner] = React.useState(false);
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
+        setSpinner(true);
+
         await axios
-            .post(process.env.NEXT_PUBLIC_API + "/auth", values)
+            .post("/api/auth/login", values)
             .then(function (response) {
+                setSpinner(false);
                 console.log(response);
-                toast.success(`успешно!`);
-                router.push(`/login`);
+                if (response.data?.error?.message) {
+                    toast.error(`Неверная почта или пароль`);
+                    return;
+                } else {
+                    router.push("/");
+                }
             })
             .catch(function (error) {
-                console.log(error);
-                toast.error(`${error?.response?.data?.errors?.full_messages}`);
+                console.log("err", error);
+                setSpinner(false);
             });
     };
-
     return (
         <>
             <div className={styles.wrapper}>
                 <Formik
                     initialValues={{
-                        name: "kostamen",
-                        nickname: "kostamen2",
-                        email: "",
-                        password: "",
+                        email: "O.liGo.Rr@ya.ru",
+                        password: "123morgen123",
                     }}
                     validate={(values) => {
                         const errors = {};
@@ -68,7 +71,7 @@ export default function SignUpFrom() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                placeholder="email address"
+                                placeholder="Email address"
                                 errors={errors?.email?.length > 0 && "error"}
                             />
                             <Input
@@ -77,11 +80,12 @@ export default function SignUpFrom() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                placeholder="password"
+                                placeholder="Password"
                             />
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
                                 type="default"
+                                spinner={spinner}
                                 disabled={
                                     errors.email ||
                                     errors.email === "" ||
@@ -90,12 +94,13 @@ export default function SignUpFrom() {
                                         : false
                                 }
                             >
-                                <p>SIGN UP</p>
+                                <p>LOGIN</p>
                             </DefaultButton>
                             <div className={styles.link}>
-                                <Link href={"/login"}>
-                                    you already have account?
+                                <Link href={"/signup"}>
+                                    you dont have a account?
                                 </Link>
+                                <Link href={"/signup"}>forgott pass?</Link>
                             </div>
                         </form>
                     )}

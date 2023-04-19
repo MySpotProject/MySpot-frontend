@@ -1,12 +1,11 @@
-"use client";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import Footer from "../app/layout/footer/footer";
-import Header from "../app/layout/header/header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../scss/index.scss";
+import Header from "layout/header/header";
+import Footer from "layout/footer/footer";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
@@ -34,11 +33,6 @@ export default function App({ Component, pageProps }) {
                     src="https://api-maps.yandex.ru/3.0/?apikey=7066165f-a263-468f-9123-b4a3a32bdfb3&lang=ru_RU"
                     type="text/javascript"
                 ></script>
-
-                {/* <script src="https://vk.com/js/api/openapi.js?168"></script> */}
-                {/* <script type="text/javascript">
-                    VK.init( apiId: 7794785 );
-                </script> */}
             </Head>
             <Header />
             <AnimatePresence exitBeforeEnter>
@@ -49,6 +43,7 @@ export default function App({ Component, pageProps }) {
                     exit="exitState"
                     transition={{
                         duration: 1,
+                        ease: "easeInOut",
                     }}
                     variants={{
                         initialState: {
