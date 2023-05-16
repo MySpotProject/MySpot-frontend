@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import DefaultButton from "../UI/defaultButton/defaultButton";
-import Input from "../UI/input/input";
+import Input from "../UI/Input/input";
 import { toast } from "react-toastify";
 
 import styles from "./signupform.module.scss";

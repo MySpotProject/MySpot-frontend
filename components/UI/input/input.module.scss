@@ -1,5 +1,7 @@
 .input__wrapper {
     position: relative;
+    height: max-content;
+    font-size: 36px;
     &::before {
         position: absolute;
         content: "";

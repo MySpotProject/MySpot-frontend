@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import DefaultButton from "../UI/defaultButton/defaultButton";
-import Input from "../UI/input/input";
+import Input from "../UI/Input/input";
 import styles from "./signinform.module.scss";
 
 export default function SignIn() {
