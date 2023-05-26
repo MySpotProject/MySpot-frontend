@@ -1,7 +1,7 @@
 .wrapper {
     text-align: left;
     cursor: pointer;
-    height: 260px;
+    min-height: 260px;
     width: 100%;
     color: black;
     text-decoration: none;
@@ -31,7 +31,12 @@
             }
         }
         & h2 {
-            text-shadow: 0px 0px 2px #ffffff;
+            // mix-blend-mode: difference;
+
+            text-shadow: 0px 0px 1px #ffffff;
+            // color: white;
+
+            z-index: 80;
             position: absolute;
             top: 50%;
             left: 2%;

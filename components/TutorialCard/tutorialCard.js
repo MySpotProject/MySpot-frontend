@@ -36,7 +36,7 @@ export default function TutorialCard({ image, title, descr, slug }) {
                     <h2>{title}</h2>
                     <Image src={image} alt={`${title}`} fill="cover" />
                 </div>
-                <p>{descr}</p>
+                {/* <p>{descr}</p> */}
             </div>
         </Link>
     );

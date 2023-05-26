@@ -1,66 +1,109 @@
 import Head from "next/head";
-import Image from "next/image";
-import React from "react";
-import images from "constants/images";
+import React, { useEffect, useState, useRef } from "react";
+import ReactDOM from "react-dom";
+import styles from "./map.module.scss";
+import MarkPopup from "@/components/MarkPopup/markPopup";
+
+const mockData = [
+    {
+        title: "яйца",
+        score: "1 .48",
+        coords: [39.719349, 47.221078],
+        descr: "Ну есть где покушаьт меня звоут паша сопли я пережил свои роды могу сказать что это тотальный треш меня воротит до сих пор и рядом есть кфсишка тошнит с неё не менее пиздец просто гайс у меня понос помогите",
+        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+        street: "7th Street",
+        user: "Govnoeshka",
+    },
+    {
+        title: "СПОТ",
+        score: "5",
+        coords: [39.720349, 47.223078],
+        descr: "залупка хех",
+        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+        street: "7th Street",
+        user: "MC KOSTAMEN",
+    },
+    {
+        title: "XSA Ramps",
+        score: "3 .48",
+        coords: [39.722149, 47.222078],
+        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+        street: "7th Street",
+        user: "PIDORAS",
+    },
+];
 
 export default function index() {
-    React.useEffect(() => {
-        window.map = null;
-        ymaps3.ready.then(init);
+    const [YMaps, setYMaps] = useState(<div />);
+    const map = useRef(null);
 
-        const {
-            YMap,
-            YMapDefaultSchemeLayer,
-            YMapControls,
-            YMapDefaultFeaturesLayer,
-            YMapMarker,
-            geolocation,
-        } = ymaps3;
-        async function init() {
-            var location = geolocation.getPosition();
-            var coords;
-            location.then(function (res) {
-                console.log(res.coords);
-                coords = res.coords;
-            });
-            const { YMapGeolocationControl } = await ymaps3.import(
-                "@yandex/ymaps3-controls@0.0.1"
-            );
-            const { YMapZoomControl } = await ymaps3.import(
-                "@yandex/ymaps3-controls@0.0.1"
-            );
+    useEffect(() => {
+        (async () => {
+            try {
+                const ymaps3 = window.ymaps3;
+                const [ymaps3React] = await Promise.all([
+                    ymaps3.import("@yandex/ymaps3-reactify"),
+                    ymaps3.ready,
+                ]);
+                const reactify = ymaps3React.reactify.bindTo(React, ReactDOM);
+                const {
+                    YMap,
+                    YMapDefaultSchemeLayer,
+                    YMapDefaultFeaturesLayer,
+                    YMapMarker,
+                    geolocation,
+                    YMapControls,
+                } = reactify.module(ymaps3);
+                const { YMapGeolocationControl } = reactify.module(
+                    await ymaps3.import("@yandex/ymaps3-controls@0.0.1")
+                );
+                const myCoords = await geolocation.getPosition();
 
-            map = new YMap(document.getElementById("map"), {
-                location: {
-                    center: coords === undefined ? [37.64, 55.76] : coords,
-                    zoom: 16,
-                },
-            });
-            map.addChild(new YMapDefaultSchemeLayer());
-            map.addChild(new YMapDefaultFeaturesLayer());
-            map.addChild(
-                new YMapControls({ position: "right" }).addChild(
-                    new YMapZoomControl({})
-                )
-            );
-            map.addChild(
-                new YMapControls({ position: "bottom right" }).addChild(
-                    new YMapGeolocationControl({})
-                )
-            );
+                setYMaps(() => (
+                    <YMap
+                        location={{
+                            center: !myCoords.coords
+                                ? [39.720349, 47.222078]
+                                : myCoords.coords,
+                            zoom: 17,
+                        }}
+                        camera={{ tilt: 6, azimuth: 0, duration: 0 }}
+                        ref={map}
+                    >
+                        <YMapDefaultSchemeLayer />
+                        <YMapDefaultFeaturesLayer />
+                        <YMapMarker coordinates={myCoords.coords}>
+                            <p className={styles.spot__mark}>Я</p>
+                        </YMapMarker>
 
-            // let lol = geolocation.getPosition;
-            // lol.then(function (result) {
-            //     console.log(result);
-            // });
+                        {mockData.map((item) => (
+                            <YMapMarker coordinates={item.coords}>
+                                <MarkPopup
+                                    title={item?.title}
+                                    score={item?.score}
+                                    coords={item?.coords}
+                                    descr={item?.descr}
+                                    image={item?.image}
+                                    street={item?.street}
+                                    user={item?.user}
+                                />
+                            </YMapMarker>
+                        ))}
 
-            // console.log(new YMapGeolocationControl;
-            const el = document.createElement("img");
-            el.className = "myMarker";
-            el.src = "./pin.svg";
-            map.addChild(new YMapMarker({ coordinates: [37.64, 55.76] }, el));
-        }
+                        <YMapControls position="bottom right">
+                            <YMapGeolocationControl />
+                        </YMapControls>
+                    </YMap>
+                ));
+            } catch (e) {
+                setYMaps(<div />);
+            }
+        })();
+        return () => {
+            map.current = null;
+        };
     }, []);
+
     return (
         <>
             <Head>
@@ -71,7 +114,11 @@ export default function index() {
                 />
                 <meta property="og:title" content="MY SPOT" key="title" />
             </Head>
-            <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
+            <div
+                style={{ width: "100vw", height: "100vh", overflow: "hidden" }}
+            >
+                {YMaps}
+            </div>
         </>
     );
 }

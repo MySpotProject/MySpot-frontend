@@ -22,7 +22,9 @@ export default function Header() {
                 <ul>
                     {nav.map((item) => (
                         <li key={item.title}>
-                            <Link href={item.url}>{item.title}</Link>
+                            <Link href={item.url}>
+                                <p>{item.title}</p>
+                            </Link>
                         </li>
                     ))}
                 </ul>

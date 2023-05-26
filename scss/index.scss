@@ -1,6 +1,6 @@
-@import url("assets/fonts/Humane/Humane-Light.css");
-@import url("assets/fonts/Humane/Humane-Bold.css");
-@import url("assets/fonts/Humane/Humane-Medium.css");
+// @import url("assets/fonts/Humane/Humane-Light.css");
+// @import url("assets/fonts/Humane/Humane-Bold.css");
+// @import url("assets/fonts/Humane/Humane-Medium.css");
 
 @import url("assets/fonts/TTDirectors/TTDir-Bold.css");
 @import url("assets/fonts/TTDirectors/TTDir-Regular.css");
@@ -19,10 +19,11 @@
 }
 p {
     font-size: 32px;
+    font-family: "Regular";
 }
 h1 {
     font-size: 72px;
-    letter-spacing: 4px;
+    // letter-spacing: 4px;
     font-family: "Black";
 }
 @media (prefers-reduced-motion: reduce) {
@@ -34,6 +35,7 @@ h1 {
 
 a {
     color: black;
+    font-family: "Regular";
     text-decoration: none;
     &::before {
         content: "";
@@ -195,4 +197,17 @@ input {
 
 .ymaps3x0--controls_bottom {
     bottom: 98px !important;
+}
+
+.ymaps3x0--marker {
+    width: max-content;
+    height: max-content;
+    & > * {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+}
+.ymaps3x0--geolocation-control-self-ru {
+    display: none !important;
 }

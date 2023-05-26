@@ -3,14 +3,14 @@
     background-color: black;
     color: white;
     cursor: pointer;
-    font-family: HumaneMed;
-    letter-spacing: 2px;
+    // letter-spacing: 2px;
     // line-height: 80%;
     padding: 14px 24px;
     position: relative;
     overflow: hidden;
 
     & > p {
+        font-family: "Bold";
         mix-blend-mode: difference;
     }
 
