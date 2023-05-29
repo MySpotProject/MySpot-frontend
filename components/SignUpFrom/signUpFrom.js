@@ -68,7 +68,7 @@ export default function SignUpFrom() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                placeholder="email address"
+                                placeholder="Почтовый адресс"
                                 errors={errors?.email?.length > 0 && "error"}
                             />
                             <Input
@@ -77,7 +77,7 @@ export default function SignUpFrom() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                placeholder="password"
+                                placeholder="Пароль"
                             />
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
@@ -90,12 +90,10 @@ export default function SignUpFrom() {
                                         : false
                                 }
                             >
-                                <p>SIGN UP</p>
+                                <p>зарегистрироваться</p>
                             </DefaultButton>
                             <div className={styles.link}>
-                                <Link href={"/login"}>
-                                    you already have account?
-                                </Link>
+                                <Link href={"/login"}>Уже есть аккаунт?</Link>
                             </div>
                         </form>
                     )}

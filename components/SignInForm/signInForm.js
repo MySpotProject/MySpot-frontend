@@ -71,7 +71,7 @@ export default function SignIn() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                placeholder="Email address"
+                                placeholder="Почтовый адресс"
                                 errors={errors?.email?.length > 0 && "error"}
                             />
                             <Input
@@ -80,7 +80,7 @@ export default function SignIn() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                placeholder="Password"
+                                placeholder="Пароль"
                             />
                             <DefaultButton
                                 handleClick={handleFormSubmit(values)}
@@ -94,13 +94,11 @@ export default function SignIn() {
                                         : false
                                 }
                             >
-                                <p>LOGIN</p>
+                                <p>ВОЙТИ</p>
                             </DefaultButton>
                             <div className={styles.link}>
-                                <Link href={"/signup"}>
-                                    you dont have a account?
-                                </Link>
-                                <Link href={"/signup"}>forgott pass?</Link>
+                                <Link href={"/signup"}>нет аккаунта?</Link>
+                                <Link href={"/signup"}>забыли пароль?</Link>
                             </div>
                         </form>
                     )}

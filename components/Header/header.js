@@ -6,9 +6,9 @@ import Link from "next/link.js";
 
 export default function Header() {
     const nav = [
-        { title: "Map", url: "/map" },
-        { title: "Tutorials", url: "/tricks" },
-        { title: "About Us", url: "/about" },
+        { title: "Карта", url: "/map" },
+        { title: "Трюки", url: "/tricks" },
+        { title: "О нас", url: "/about" },
     ];
 
     return (
