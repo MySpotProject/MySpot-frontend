@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../scss/index.scss";
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
+import Header from "@/components/Header/header";
+import Footer from "@/components/Footer/footer";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();

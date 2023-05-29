@@ -177,6 +177,39 @@ export default function index() {
                 );
                 const myCoords = await geolocation.getPosition();
 
+                const points = mockData.map((lnglat, i) => ({
+                    type: 'Feature',
+                    id: i,
+                    geometry: {coordinates: lnglat.coords},
+                    properties: {name: 'Point of issue of orders'},
+                    ...lnglat
+                }));
+
+                const cluster = (coordinates, items) => (
+                    <YMapMarker coordinates={coordinates}>
+                        <MarkPopup
+                            title={items.length}
+                        />
+                    </YMapMarker>
+                )
+
+                const marker = (item) => (
+                    <YMapMarker coordinates={item.coords}>
+                        <MarkPopup
+                            title={item?.title}
+                            score={item?.score}
+                            coords={item?.coords}
+                            descr={item?.descr}
+                            image={item?.image}
+                            street={item?.street}
+                            user={item?.user}
+                            figures={item?.figures}
+                            comments={item?.comments}
+                            user_image={item?.user_image}
+                        />
+                    </YMapMarker>
+                )
+
                 setYMaps(() => (
                     <YMap
                         location={{
@@ -189,39 +222,18 @@ export default function index() {
                         ref={map}
                     >
                         <YMapListener
-                        // onClick={(e) => {
-                        //     const lol = geolocation.getPosition(e);
-                        //     console.log(lol);
-                        // }}
+                            onClick={(e) => {
+                                if (e) console.log(e.entity.geometry.coordinates);
+                            }}
                         />
                         <YMapDefaultSchemeLayer />
                         <YMapDefaultFeaturesLayer />
                         <YMapMarker coordinates={myCoords.coords}>
                             <p className={styles.spot__mark}>Я</p>
                         </YMapMarker>
+                        
+                        <YMapClusterer method={clusterByGrid({ gridSize: 64 })} features={points} marker={marker} cluster={cluster} />
 
-                        {mockData.map((item) => (
-                            <YMapMarker
-                                coordinates={item.coords}
-                                // onClick={(e) => {
-                                //     const lol = e.get.coordinates();
-                                //     console.log(lol);
-                                // }}
-                            >
-                                <MarkPopup
-                                    title={item?.title}
-                                    score={item?.score}
-                                    coords={item?.coords}
-                                    descr={item?.descr}
-                                    image={item?.image}
-                                    street={item?.street}
-                                    user={item?.user}
-                                    figures={item?.figures}
-                                    comments={item?.comments}
-                                    user_image={item?.user_image}
-                                />
-                            </YMapMarker>
-                        ))}
                         <YMapControls position="bottom right">
                             <YMapGeolocationControl />
                         </YMapControls>
