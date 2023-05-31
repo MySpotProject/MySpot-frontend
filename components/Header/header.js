@@ -28,8 +28,10 @@ export default function Header() {
                         </li>
                     ))}
                 </ul>
-                <div className={styles.header__menu}>
-                    <Image src={images.menu} alt={"menu"} />
+                <div className={styles.header__wrapper}>
+                    <div className={styles.burger}>
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </header>

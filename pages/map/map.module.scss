@@ -22,3 +22,12 @@
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(2px);
 }
+
+.addNewSpot {
+    position: absolute;
+    z-index: 20;
+    bottom: 94px;
+    right: 12px;
+    width: max-content;
+    height: max-content;
+}

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import Input from "../UI/Input/input";
 import styles from "./signinform.module.scss";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function SignIn() {
     const router = useRouter();
@@ -16,21 +17,38 @@ export default function SignIn() {
         setSpinner(true);
 
         await axios
-            .post("/api/auth/login", values)
+            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
                 setSpinner(false);
                 console.log(response);
-                if (response.data?.error?.message) {
-                    toast.error(`Неверная почта или пароль`);
-                    return;
-                } else {
-                    router.push("/");
-                }
+                setCookie(
+                    "222222222myspot_jwt",
+                    response?.headers?.authorization
+                );
+                // router.push("/");
             })
             .catch(function (error) {
                 console.log("err", error);
                 setSpinner(false);
+                toast.error(`${error?.response?.data?.errors?.full_messages}`);
             });
+
+        // await axios
+        //     .post("/api/auth/login", values)
+        //     .then(function (response) {
+        //         setSpinner(false);
+        //         console.log(response);
+        //         if (response.data?.error?.message) {
+        //             toast.error(`Неверная почта или пароль`);
+        //             return;
+        //         } else {
+        //             router.push("/");
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log("err", error);
+        //         setSpinner(false);
+        //     });
     };
     return (
         <>
@@ -38,7 +56,7 @@ export default function SignIn() {
                 <Formik
                     initialValues={{
                         email: "O.liGo.Rr@ya.ru",
-                        password: "123morgen123",
+                        password: "O.liGo.Rr@ya.ru",
                     }}
                     validate={(values) => {
                         const errors = {};

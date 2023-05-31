@@ -3,7 +3,7 @@ import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
 import axios from "axios";
 
-const secret = process.env.NEXT_PUBLIC_SECRET;
+const secret = process.env.NEXT_SECRET;
 
 export default async function (req, res) {
     const { email, password } = req.body;
@@ -20,7 +20,7 @@ export default async function (req, res) {
                 },
                 secret
             );
-            const serialised = serialize("MySpot_JWT", token, {
+            const serialised = serialize("222222222myspot_jwt", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV !== "development",
                 sameSite: "strict",

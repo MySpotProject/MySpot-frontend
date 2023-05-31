@@ -24,7 +24,7 @@ export default function MarkPopup({
     figures,
 }) {
     const [popupOpen, setPopupOpen] = useState(false);
-
+    console.log(image[0].url);
     return (
         <div className={styles.spot} onClick={() => setPopupOpen(true)}>
             {!popupOpen && (
@@ -54,12 +54,15 @@ export default function MarkPopup({
                         slidesPerView={1}
                         navigation
                     >
-                        <SwiperSlide>
-                            <Image src={image} alt={`${title}`} fill="cover" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Image src={image} alt={`${title}`} fill="cover" />
-                        </SwiperSlide>
+                        {image?.map((item, i) => (
+                            <SwiperSlide>
+                                <Image
+                                    src={item[i]?.src}
+                                    alt={`${title}`}
+                                    fill="cover"
+                                />
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
                     <div className={styles.about}>
                         <div className={styles.about__left}>

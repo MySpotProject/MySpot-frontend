@@ -10,6 +10,24 @@ const POINTS = [
     { coordinates: [55.77, 37.65] },
 ];
 
+const [YMaps, setYMaps] = useState(<div />);
+const [getZoom, setGetZoom] = useState(17);
+
+useEffect(() => {
+    setYMaps(() => (
+        <>
+            <YMapListener
+                layer={"any"}
+                onActionStart={(e) => {
+                    setGetZoom(e?.location?.zoom);
+                }}
+            />
+            {getZoom < 14 && <YMapClusterer />}
+            ));
+        </>
+    ));
+}, []);
+
 export default function index() {
     React.useEffect(() => {
         window.map = null;
