@@ -1,7 +1,11 @@
-@import "variables";
-@import url("../app/fonts/Humane-Light.css");
-@import url("../app/fonts/Humane-Bold.css");
-@import url("../app/fonts/Humane-Medium.css");
+// @import url("assets/fonts/Humane/Humane-Light.css");
+// @import url("assets/fonts/Humane/Humane-Bold.css");
+// @import url("assets/fonts/Humane/Humane-Medium.css");
+
+@import url("assets/fonts/TTDirectors/TTDir-Bold.css");
+@import url("assets/fonts/TTDirectors/TTDir-Regular.css");
+@import url("assets/fonts/TTDirectors/TTDir-Thin.css");
+@import url("assets/fonts/TTDirectors/TTDir-Black.css");
 
 :root {
     --bg-color-white: white;
@@ -13,8 +17,37 @@
 
     --link-animation: coverUp 0.4s ease-in-out forwards;
 }
+p {
+    font-size: 32px;
+    font-family: "Regular";
+}
+h1 {
+    font-size: 72px;
+    // letter-spacing: 4px;
+    font-family: "Black";
+}
+h2 {
+    font-size: 48px;
+    font-family: "Black";
+}
+div {
+    position: relative;
+    & img {
+        object-fit: cover;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: smooth !important;
+        animation-timing-function: ease-in-out !important;
+    }
+}
 
 a {
+    color: black;
+    font-family: "Regular";
+    text-decoration: none;
+    position: relative;
     &::before {
         content: "";
         position: absolute;
@@ -69,19 +102,18 @@ a {
 *::after {
     box-sizing: border-box;
 }
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.8); /* or add it to the track */
+}
+*::-webkit-scrollbar-thumb {
+    background: #000;
+}
 
 ul[class],
 ol[class] {
     padding: 0;
-}
-
-input {
-    outline: none;
-}
-input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 50px #ffffff !important; /* Цвет фона */
-    -webkit-text-fill-color: #000000 !important; /* цвет текста */
-    color: #000000 !important; /* цвет текста */
 }
 
 body,
@@ -111,7 +143,7 @@ body {
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     background-color: black;
-    font-family: "HumaneMed";
+    font-family: "Bold";
 }
 *::selection {
     color: rgb(255, 255, 255);
@@ -143,15 +175,6 @@ select {
     font: inherit;
 }
 
-// @media (prefers-reduced-motion: reduce) {
-//     * {
-//         animation-duration: 0.01ms !important;
-//         animation-iteration-count: 1 !important;
-//         transition-duration: 0.01ms !important;
-//         scroll-behavior: auto !important;
-//     }
-// }
-
 html * {
     box-sizing: border-box;
 }
@@ -174,12 +197,42 @@ input {
 .main__wrapper {
     max-width: 1440px;
     margin: 0 auto;
+    @media (max-width: 1450px) {
+        padding: 0 10px;
+    }
+}
+.main__height {
+    min-height: 100vh;
 }
 
-.ymaps-2-1-79-map-copyrights-promo {
-    left: 0 !important;
-    bottom: 70px !important;
+.ymaps3x0--map-copyrights_bottom {
+    bottom: 68px !important;
 }
-.ymaps-2-1-79-copyright__wrap {
-    transform: translateY(-70px);
+
+.ymaps3x0--marker {
+    width: 34px;
+    height: 34px;
+}
+
+.ymaps3x0--controls_bottom {
+    bottom: 154px !important;
+}
+.ymaps3x0--control {
+    border-radius: 0 !important;
+    background-color: #000 !important;
+    & > * {
+        background-color: #000 !important;
+    }
+}
+.ymaps3x0--marker {
+    width: max-content;
+    height: max-content;
+    & > * {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+}
+.ymaps3x0--geolocation-control-self-ru {
+    display: none !important;
 }

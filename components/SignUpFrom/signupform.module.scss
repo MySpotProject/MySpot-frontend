@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 480px;
+    letter-spacing: 2px;
+    font-family: "HumaneBold";
+}
+.title {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    font-family: HumaneLight;
+    * {
+        cursor: pointer;
+    }
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.link {
+    position: relative;
+    & > * {
+        font-size: 24px;
+        transition: all 0.4s;
+        // opacity: 0.4;
+        text-transform: uppercase;
+        color: black;
+        position: relative;
+    }
+}
