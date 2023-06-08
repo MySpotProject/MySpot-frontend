@@ -1,4 +1,3 @@
-"use server";
 import React from "react";
 import styles from "./main.module.scss";
 import Image from "next/image";

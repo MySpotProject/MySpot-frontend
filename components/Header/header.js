@@ -1,4 +1,3 @@
-"use server";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import images from "../../constants/images.js";
