@@ -2,7 +2,7 @@ import React from "react";
 import TutorialCard from "@/components/TutorialCard/tutorialCard";
 import styles from "./tutorials.module.scss";
 import Spacer from "@/components/UI/spacer/spacer";
-import Pagination from "@/components/UI/Pagination/Pagination";
+import Pagination from "@/components/UI/Pagination/pagination";
 import Head from "next/head";
 import Search from "@/components/Search/search";
 
