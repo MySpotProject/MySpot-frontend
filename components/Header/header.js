@@ -1,15 +1,41 @@
-import React from "react";
+"use server";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import images from "../../constants/images.js";
 import styles from "./header.module.scss";
 import Link from "next/link.js";
-
+import cn from "classnames";
+import HeaderMenu from "../HeaderMenu/headerMenu.js";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router.js";
+const variants = {
+    open: { opacity: 1, y: 0, display: "block" },
+    closed: {
+        opacity: 0,
+        y: "-5vh",
+        transitionEnd: {
+            display: "none",
+        },
+    },
+};
 export default function Header() {
+    const router = useRouter();
+    useEffect(() => {
+        const handleRouteChange = () => {
+            setIsActive(false);
+        };
+        router.events.on("routeChangeStart", handleRouteChange);
+        return () => {
+            router.events.off("routeChangeStart", handleRouteChange);
+        };
+    }, [router.events]);
+
     const nav = [
         { title: "Карта", url: "/map" },
         { title: "Трюки", url: "/tricks" },
         { title: "О нас", url: "/about" },
     ];
+    const [isActive, setIsActive] = useState(false);
 
     return (
         <header className={styles.header}>
@@ -28,12 +54,26 @@ export default function Header() {
                         </li>
                     ))}
                 </ul>
-                <div className={styles.header__wrapper}>
+                <div
+                    className={cn(
+                        styles.header__wrapper,
+                        styles[isActive && "is-active"]
+                    )}
+                    onClick={() => setIsActive((prev) => !prev)}
+                >
                     <div className={styles.burger}>
                         <span></span>
                     </div>
                 </div>
             </div>
+            <motion.div
+                initial={{ display: "none" }}
+                className={styles.burgerMenu_wrapper}
+                animate={isActive ? "open" : "closed"}
+                variants={variants}
+            >
+                <HeaderMenu />
+            </motion.div>
         </header>
     );
 }

@@ -72,7 +72,7 @@ export default function AddNewSpot({ latlnd }) {
             >
                 <div className={styles.spotPopup} ref={popupRef}>
                     <p>.</p>
-                    <CreateSpotFrom latlnd={latlnd} />
+                    <CreateSpotFrom latlnd={latlnd} close={setAddNewSpot} />
                 </div>
             </CSSTransition>
         </>

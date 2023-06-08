@@ -47,6 +47,7 @@ a {
     color: black;
     font-family: "Regular";
     text-decoration: none;
+    position: relative;
     &::before {
         content: "";
         position: absolute;

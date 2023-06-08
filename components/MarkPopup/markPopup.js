@@ -24,7 +24,13 @@ export default function MarkPopup({
     figures,
 }) {
     const [popupOpen, setPopupOpen] = useState(false);
-    console.log(image[0].url);
+    const [figure, setFigure] = useState([
+        { name: "pool", value: figures[0] },
+        { name: "ramp", value: figures[1] },
+        { name: "rail", value: figures[2] },
+        { name: "ladder", value: figures[3] },
+        { name: "slide_elements", value: figures[4] },
+    ]);
     return (
         <div className={styles.spot} onClick={() => setPopupOpen(true)}>
             {!popupOpen && (
@@ -57,7 +63,7 @@ export default function MarkPopup({
                         {image?.map((item, i) => (
                             <SwiperSlide>
                                 <Image
-                                    src={item[i]?.src}
+                                    src={item?.url}
                                     alt={`${title}`}
                                     fill="cover"
                                 />
@@ -91,20 +97,10 @@ export default function MarkPopup({
                             </div>
                         </div>
                         <div className={styles.about__right}>
-                            {figures.map((item, index) => (
-                                <>
-                                    {Object.entries(item).map(
-                                        ([key, value]) => (
-                                            <p
-                                                className={
-                                                    styles[!value && "active"]
-                                                }
-                                            >
-                                                {key}
-                                            </p>
-                                        )
-                                    )}
-                                </>
+                            {figure.map((item) => (
+                                <p className={styles[!item?.value && "active"]}>
+                                    {item.name}
+                                </p>
                             ))}
                         </div>
                     </div>

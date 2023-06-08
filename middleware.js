@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { verifyAuth } from "./lib/auth";
+import axios from "axios";
 // import { verifyAuth } from "./lib/auth";
 
 export async function middleware(req = NextRequest) {
-    const token = req.cookies.get("222222222myspot_jwt")?.value;
+    const token = req.cookies.get("myspot_jwt2222")?.value;
+    // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API;
+    // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     // console.log(token);
     // const verifiedToken =
     //     token &&
@@ -12,6 +15,7 @@ export async function middleware(req = NextRequest) {
     //         console.log(err);
     //     }));
     // console.log(verifiedToken);
+
     if (req.nextUrl.pathname.startsWith("/login") && !token) {
         return;
     }

@@ -1,3 +1,4 @@
+"use server";
 import Head from "next/head";
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
@@ -5,6 +6,7 @@ import styles from "./map.module.scss";
 import MarkPopup from "@/components/MarkPopup/markPopup";
 import AddNewSpot from "../../components/AddNewSpot/addNewSpot";
 import axios from "axios";
+import { useGeolocated } from "react-geolocated";
 
 const mockData = [
     {
@@ -177,10 +179,6 @@ const mockData = [
 
 export default function index({ data }) {
     const [spots, setSpots] = useState(data);
-    console.log(spots);
-
-    // const [newSpots, setNewSpots] = useState({ ...mockData, spots });
-    // console.log(newSpots);
 
     const [YMaps, setYMaps] = useState(<div />);
     const [getZoom, setGetZoom] = useState(17);
@@ -197,7 +195,21 @@ export default function index({ data }) {
     const handleZoomChange = (zoom) => {
         setGetZoom(zoom?.location?.zoom);
     };
-    console.log("getCenterCoords", getCenterCoords);
+
+    // const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    //     useGeolocated({
+    //         positionOptions: {
+    //             enableHighAccuracy: true,
+    //         },
+    //         userDecisionTimeout: 5000,
+    //     });
+    // console.log("coords", isGeolocationAvailable, coords);
+    // console.log(
+    //     "webAPI",
+    //     navigator?.geolocation?.getCurrentPosition((position) => {
+    //         doSomething(position.coords.latitude, position.coords.longitude);
+    //     })
+    // );
 
     useEffect(() => {
         (async () => {
@@ -284,15 +296,14 @@ export default function index({ data }) {
                             onActionEnd={GetCenterCoords}
                         />
 
-                        {spots.map((item) => (
+                        {spots?.map((item) => (
                             <YMapMarker coordinates={[item.lat, item.lng]}>
                                 <MarkPopup
-                                    title={item?.address}
+                                    title={item?.title}
                                     // score={item?.score}
-                                    // coords={item?.coords}
-                                    // descr={item?.descr}
+                                    descr={item?.description}
                                     image={item?.images}
-                                    // street={item?.street}
+                                    street={item?.address}
                                     // user={item?.user}
                                     figures={[
                                         item?.pools,
@@ -354,14 +365,17 @@ export default function index({ data }) {
 }
 
 export async function getServerSideProps({ params }) {
-    // const {  };
-    const spots = await axios
-        .get(process.env.NEXT_PUBLIC_API + "/api/spots.json")
-        .then((response) => response.data);
+    try {
+        const spots = await axios
+            .get(process.env.NEXT_PUBLIC_API + "/api/spots.json")
+            .then((response) => response?.data);
 
-    return {
-        props: {
-            data: spots,
-        },
-    };
+        return {
+            props: {
+                data: spots,
+            },
+        };
+    } catch (error) {
+        return { redirect: { destination: "/", permanent: false } };
+    }
 }

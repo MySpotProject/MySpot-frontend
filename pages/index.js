@@ -1,4 +1,4 @@
-"use client";
+"use server";
 import React from "react";
 import styles from "./main.module.scss";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import useWindowSize from "Hooks/useWindowSize";
 import Head from "next/head";
 
 export default function HomePage() {
+    // console.log("credentials", data);
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault();
@@ -80,9 +81,7 @@ export default function HomePage() {
 }
 
 // export async function getServerSideProps() {
-//     const res = axios.get(process.env.NEXT_PUBLIC_API + "/auth/sign_in");
+//     const res = httpCommon.get("/api/profile.json");
 //     const data = await res?.data;
-//     console.log(data);
-
 //     return { props: { data } };
 // }

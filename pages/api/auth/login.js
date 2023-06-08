@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { sign } from "jsonwebtoken";
-import { serialize } from "cookie";
+// import { decode, jwt, verify, sign } from "jsonwebtoken";
 import axios from "axios";
+import { serialize } from "cookie";
+const jwt = require("jsonwebtoken");
 
 const secret = process.env.NEXT_SECRET;
-
 export default async function (req, res) {
     const { email, password } = req.body;
     await axios
@@ -13,24 +13,34 @@ export default async function (req, res) {
             password,
         })
         .then(function (response) {
-            const token = sign(
-                {
-                    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30, // 30 days
-                    email: email,
-                },
-                secret
+            const encodedToken = response?.headers?.authorization;
+            const token = encodedToken.replace("Bearer ", "");
+            const lol = response?.headers;
+            // console.log(lol?.expiry);
+
+            // const serialised = serialize("myspot_jwt2222", token, {
+            //     httpOnly: true,
+            //     secure: process.env.NODE_ENV !== "development",
+            //     sameSite: "strict",
+            //     maxAge: 60 * 60 * 24 * 30, //30 days
+            //     path: "/",
+            // });
+
+            // 222222222myspot_jwt=
+            res.setHeader(
+                "Set-Cookie",
+                `myspot_jwt2222=${token}; Path=/; HttpOnly`
             );
-            const serialised = serialize("222222222myspot_jwt", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV !== "development",
-                sameSite: "strict",
-                maxAge: 60 * 60 * 24 * 30, //30 days
-                path: "/",
+
+            const { status, data } = response;
+            res.status(status).json({
+                data,
             });
-            res.setHeader("Set-Cookie", serialised);
-            res.json({ response });
         })
         .catch(function (error) {
-            res.json({ error });
+            const { status, data } = error.response;
+            res.status(status).json({
+                error: data,
+            });
         });
 }

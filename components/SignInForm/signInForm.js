@@ -1,3 +1,4 @@
+// "use server";
 import React from "react";
 import axios from "axios";
 import { Formik } from "formik";
@@ -17,38 +18,26 @@ export default function SignIn() {
         setSpinner(true);
 
         await axios
-            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
+            .post("/api/auth/login", values)
             .then(function (response) {
                 setSpinner(false);
-                console.log(response);
-                setCookie(
-                    "222222222myspot_jwt",
-                    response?.headers?.authorization
-                );
-                // router.push("/");
+                console.log("res", response);
+                // setCookie(
+                //     "222222222myspot_jwt",
+                //     response?.headers?.authorization,
+                // );
+                router.reload();
             })
             .catch(function (error) {
-                console.log("err", error);
+                console.error("err", error);
                 setSpinner(false);
-                toast.error(`${error?.response?.data?.errors?.full_messages}`);
+                if (error?.response?.data?.error?.errors) {
+                    // toast.error(`${error?.response?.data?.error.errors}`);
+                    toast.error(`Неверные данные`);
+                } else {
+                    toast.error(`Проблемы с сервером, попробуйте позже`);
+                }
             });
-
-        // await axios
-        //     .post("/api/auth/login", values)
-        //     .then(function (response) {
-        //         setSpinner(false);
-        //         console.log(response);
-        //         if (response.data?.error?.message) {
-        //             toast.error(`Неверная почта или пароль`);
-        //             return;
-        //         } else {
-        //             router.push("/");
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log("err", error);
-        //         setSpinner(false);
-        //     });
     };
     return (
         <>

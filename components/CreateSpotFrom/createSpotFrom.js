@@ -3,79 +3,43 @@ import styles from "./createSpotFrom.module.scss";
 import Input from "../UI/Input/input";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import Image from "next/image";
-import axios from "axios";
-import { getCookie, setCookie } from "cookies-next";
-import { Field, Formik } from "formik";
 import cn from "classnames";
+import { Field, Formik } from "formik";
+import axios from "axios";
 
 export default function CreateSpotFrom({ latlnd }) {
-    // localhost:3001/api/spots/register_new
     const [imageFiles, setImageFiles] = useState([]);
-    const headers = {
-        Authorization: getCookie("222222222myspot_jwt"),
-    };
 
-    // axios.interceptors.request.use((request) => {
-    //     console.log("Headers:", request.headers);
-    //     return request;
-    // });
     const handleFormSubmit = (values) => async (event) => {
         event.preventDefault();
 
-        let inputFiles = document.getElementById("files");
-        console.log("inputFiles inputFiles", inputFiles);
-        console.log(
-            "inputFiles inputFilesinputFilesinputFiles",
-            inputFiles.files
-        );
-
-        var formData = new FormData();
-        console.log(imageFiles);
-        const updatedValues = {
-            ...values,
-            lat: latlnd[0],
-            lng: latlnd[1],
-            address: "asdsadsad",
-            pools: true,
-            ramps: false,
-            rail: false,
-            ladder: true,
-            slide: false,
+        const getFigureValue = (figures, i) => {
+            const figure = figures[i];
+            const value = Object.values(figure)[0];
+            return value;
         };
-        // formData.append("image", $("input[type=file]")[0].files[0]);
 
-        var ins = document.getElementById("files").files.length;
-        for (var x = 0; x < ins; x++) {
-            formData.append("spot[images][]", inputFiles.files[x]);
-        }
-
-        // inputFiles.files.forEach((item, i) => {
-        //     formData.append("spot[images][]", inputFiles.file.lentgh);
-        // });
+        let formData = new FormData();
+        formData.append("spot[title]", values.title);
         formData.append("spot[address]", "asdasdasd");
         formData.append("spot[description]", values.description);
-        formData.append("spot[pools]", true);
-        formData.append("spot[ramps]", false);
-        formData.append("spot[rail]", false);
-        formData.append("spot[ladder]", false);
-        formData.append("spot[slide]", true);
+        formData.append("spot[pools]", getFigureValue(values.figures, 0));
+        formData.append("spot[ramps]", getFigureValue(values.figures, 1));
+        formData.append("spot[rail]", getFigureValue(values.figures, 2));
+        formData.append("spot[ladder]", getFigureValue(values.figures, 3));
+        formData.append("spot[slide]", getFigureValue(values.figures, 4));
         formData.append("spot[lat]", latlnd[0]);
         formData.append("spot[lng]", latlnd[1]);
-
+        let inputFiles = document.getElementById("files");
+        let ins = document.getElementById("files").files.length;
+        for (let x = 0; x < ins; x++) {
+            formData.append("spot[images][]", inputFiles.files[x]);
+        }
+        // /api/axiosMiddleware/createSpot
         await axios
-            .post(
-                process.env.NEXT_PUBLIC_API + "/api/spots/register_new",
-                formData,
-                {
-                    headers,
-                }
-            )
+            .post("/api/axiosMiddleware/createSpot", formData)
             .then(function (response) {
                 console.log(response);
-                setCookie(
-                    "222222222myspot_jwt",
-                    response?.headers?.authorization
-                );
             })
             .catch(function (error) {
                 console.log(error);
