@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import DefaultButton from "../UI/defaultButton/defaultButton";
-import Input from "../UI/Input/input";
+import Input from "../UI/input/input";
 import styles from "./signinform.module.scss";
 import { getCookie, setCookie } from "cookies-next";
 

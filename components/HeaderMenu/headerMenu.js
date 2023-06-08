@@ -5,7 +5,7 @@ import Image from "next/image";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import { useRouter } from "next/router";
 import images from "../../constants/images";
-import Input from "../UI/Input/input";
+import Input from "../UI/input/input";
 import axios from "axios";
 
 export default function HeaderMenu() {

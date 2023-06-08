@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./createSpotFrom.module.scss";
-import Input from "../UI/Input/input";
+import Input from "../UI/input/input";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import Image from "next/image";
 import cn from "classnames";

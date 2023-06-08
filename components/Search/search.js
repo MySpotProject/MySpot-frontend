@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./search.module.scss";
-import Input from "../UI/Input/input";
+import Input from "../UI/input/input";
 import Link from "next/link";
 import Image from "next/image";
 
