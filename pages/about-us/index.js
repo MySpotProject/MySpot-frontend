@@ -9,31 +9,31 @@ export default function index() {
     const mockData = [
         {
             id: 1,
-            title: "GOVNO",
-            descr: "ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ",
+            title: "NEWS1",
+            descr: "newsDescritpion  newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion  ",
             date: "14/05/23",
         },
         {
             id: 2,
-            title: "GOVNO",
-            descr: "ANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUSANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ",
+            title: "newsTiitle",
+            descr: "newsDescritpion  newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion  ",
             date: "14/05/23",
         },
         {
             id: 3,
-            title: "GOVNO",
-            descr: "ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ",
+            title: "newsTiitle",
+            descr: "newsDescritpion  newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion  ",
             date: "14/05/23",
         },
         {
             id: 4,
-            title: "GOVNO",
-            descr: "ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ANUS ",
+            title: "newsTiitle",
+            descr: "newsDescritpion  newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion newsDescritpion  ",
             date: "14/05/23",
         },
     ];
     const developersData = [
-        { position: "Frontend", name: "Олег Хех" },
+        { position: "Frontend", name: "Олег Точеный" },
         { position: "Backend", name: "Константин Вернигоров" },
         { position: "Tester", name: "Григорий Харчистов" },
         { position: "Project Manager", name: "Юра Сухенко" },
