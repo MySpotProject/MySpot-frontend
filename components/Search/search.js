@@ -13,7 +13,7 @@ export default function Search({ data }) {
 
     return (
         <div className={styles.wrapper}>
-            <Input placeholder="Search" value={value} onChange={onChange} />
+            <Input placeholder="Поиск" value={value} onChange={onChange} />
             <div className={styles.dropDown}>
                 {data
                     ?.filter((item) => {

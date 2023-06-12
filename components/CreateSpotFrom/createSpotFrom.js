@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./createSpotFrom.module.scss";
 import Input from "../UI/input/input";
 import DefaultButton from "../UI/defaultButton/defaultButton";
@@ -6,8 +6,11 @@ import Image from "next/image";
 import cn from "classnames";
 import { Field, Formik } from "formik";
 import axios from "axios";
+import instance from "../../instanceAxios";
+import { setCookie, getCookie } from "cookies-next";
 
 export default function CreateSpotFrom({ latlnd }) {
+    const inputFilesREF = useRef(null);
     const [imageFiles, setImageFiles] = useState([]);
 
     const handleFormSubmit = (values) => async (event) => {
@@ -21,24 +24,34 @@ export default function CreateSpotFrom({ latlnd }) {
 
         let formData = new FormData();
         formData.append("spot[title]", values.title);
-        formData.append("spot[address]", "asdasdasd");
         formData.append("spot[description]", values.description);
+        formData.append("spot[address]", "asdasdasd");
+        formData.append("spot[lat]", latlnd[0]);
+        formData.append("spot[lng]", latlnd[1]);
         formData.append("spot[pools]", getFigureValue(values.figures, 0));
         formData.append("spot[ramps]", getFigureValue(values.figures, 1));
         formData.append("spot[rail]", getFigureValue(values.figures, 2));
         formData.append("spot[ladder]", getFigureValue(values.figures, 3));
         formData.append("spot[slide]", getFigureValue(values.figures, 4));
-        formData.append("spot[lat]", latlnd[0]);
-        formData.append("spot[lng]", latlnd[1]);
-        let inputFiles = document.getElementById("files");
-        let ins = document.getElementById("files").files.length;
+        let inputFilesCurrent = inputFilesREF.current;
+        let ins = inputFilesCurrent.files.length;
         for (let x = 0; x < ins; x++) {
-            formData.append("spot[images][]", inputFiles.files[x]);
+            formData.append("spot[images][]", inputFilesCurrent.files[x]);
         }
-        // /api/axiosMiddleware/createSpot
-        await axios
-            .post("/api/axiosMiddleware/createSpot", formData)
+
+        await instance
+            .post("/api/spots/register_new", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            // .post("/api/axiosMiddleware/createSpot", formData, {
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // })
             .then(function (response) {
+                setCookie("myspot_jwt2222", response?.headers?.authorization);
                 console.log(response);
             })
             .catch(function (error) {
@@ -50,8 +63,8 @@ export default function CreateSpotFrom({ latlnd }) {
         <div className={styles.aside}>
             <Formik
                 initialValues={{
-                    title: "СПОТ",
-                    description: "",
+                    title: "SPOT",
+                    description: "DESCR",
                     // lat: latlnd[0],
                     // lng: latlnd[1],
                     figures: [
@@ -96,6 +109,7 @@ export default function CreateSpotFrom({ latlnd }) {
                         </h2>
                         <label className={styles.addPhotos}>
                             <input
+                                ref={inputFilesREF}
                                 id="files"
                                 type="file"
                                 name="images"

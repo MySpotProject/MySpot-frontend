@@ -1,6 +1,8 @@
 .wrapper {
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: white;
     z-index: 19;
     overflow-y: auto;
@@ -17,11 +19,14 @@
         width: 100%;
         // padding-top: 8%;
         padding-top: 150px;
-        padding-bottom: 4%;
+        // padding-bottom: 68px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         position: relative;
+        @media (max-width: 480px) {
+            padding-top: 80px;
+        }
 
         & .user_container {
             & .user_profile {
@@ -33,12 +38,46 @@
                 align-items: center;
                 width: 50%;
                 position: relative;
+                @media (max-width: 1024px) {
+                    width: 100%;
+                }
+                @media (max-width: 768px) {
+                    width: 100%;
+                }
+                @media (max-width: 580px) {
+                    flex-direction: column;
+                    border: none;
+                }
                 & .nickName {
                     align-self: self-end;
                     width: 50%;
+                    @media (max-width: 580px) {
+                        width: auto;
+                        align-items: center;
+                        align-self: auto;
+                    }
+                    & .nickName_container {
+                        position: relative;
+                        & > * {
+                            font-size: 72px;
+                            font-family: "Black";
+                            @media (max-width: 580px) {
+                                font-size: calc(72px / 1.2);
+                            }
+                        }
+                    }
                     & .user_nickName {
-                        font-size: 72px;
-                        font-family: "Black";
+                        transition: 0.2s all ease-in-out;
+                        cursor: pointer;
+                        width: max-content;
+                        &:hover {
+                            background-color: rgba(128, 128, 128, 0.2);
+                        }
+                    }
+                    & .changeNickName {
+                        top: 0;
+                        left: 0;
+                        position: absolute;
                         border: 0;
                         background-color: transparent;
                     }
@@ -50,15 +89,50 @@
                             opacity: 0.8;
                         }
                     }
+                    & .socials {
+                        position: relative;
+                        & li {
+                            width: 100%;
+                            height: 100%;
+                            position: relative;
+                            & .socials_icons {
+                                margin: 0;
+                            }
+                            & .socials_popOver {
+                                background-color: white;
+                                z-index: 20;
+                                top: 0;
+                                left: 100%;
+                                width: 1000%;
+                                transform: translate(-50%, -120%);
+                                position: absolute;
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 24px;
+                                    height: 24px;
+                                    bottom: 0%;
+                                    left: 50%;
+                                    rotate: 45deg;
+                                    transform: translate(-50%, 100%);
+                                    background-color: black;
+                                }
+                            }
+                        }
+                    }
                 }
                 & .pts {
                     align-self: flex-start;
                     flex: 1;
                     text-align: right;
+                    @media (max-width: 580px) {
+                        align-self: center;
+                        flex: auto;
+                        text-align: center;
+                    }
                 }
                 & .image {
                     // border-radius: 50%;
-
                     width: 194px;
                     height: 194px;
                     cursor: pointer;
@@ -66,6 +140,10 @@
                     transition: var(--transition-default);
                     transition-duration: 0.2s;
                     position: relative;
+                    @media (max-width: 580px) {
+                        width: calc(194px / 1.2);
+                        height: calc(194px / 1.2);
+                    }
                     & input {
                         display: none;
                     }
@@ -75,6 +153,9 @@
                 }
                 & ul {
                     margin: 0;
+                    @media (max-width: 580px) {
+                        justify-content: center;
+                    }
                     & li {
                         max-width: 28px !important;
                         max-height: 28px !important;
@@ -91,12 +172,11 @@
             }
         }
         & .bottom {
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            padding-bottom: 60px;
             & > * {
-                text-align: right;
-                &:nth-child(1) {
-                    opacity: 0.5;
-                }
                 transition: var(--transition-default);
                 transition-duration: 0.2s;
             }
@@ -108,6 +188,7 @@
 }
 
 .no_auth {
+    overflow: hidden;
     & .no_auth__content {
         position: absolute;
         top: 50%;
@@ -123,6 +204,9 @@
         & button {
             width: 100%;
         }
+        @media (max-width: 768px) {
+            width: 80%;
+        }
     }
     &::after {
         top: 0;
@@ -134,4 +218,11 @@
         // background-color: rgba(255, 255, 255, 0.192);
         backdrop-filter: blur(12px);
     }
+}
+
+.close {
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    position: absolute;
 }

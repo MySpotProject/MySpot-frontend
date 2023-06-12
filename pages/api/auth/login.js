@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 // import { decode, jwt, verify, sign } from "jsonwebtoken";
 import axios from "axios";
-import { serialize } from "cookie";
-const jwt = require("jsonwebtoken");
+// import { serialize } from "cookie";
+// const jwt = require("jsonwebtoken");
 
 const secret = process.env.NEXT_SECRET;
 export default async function (req, res) {

@@ -5,7 +5,7 @@ import styles from "./map.module.scss";
 import MarkPopup from "@/components/MarkPopup/markPopup";
 import AddNewSpot from "../../components/AddNewSpot/addNewSpot";
 import axios from "axios";
-import { useGeolocated } from "react-geolocated";
+// import { useGeolocated } from "react-geolocated";
 
 const mockData = [
     {
@@ -298,20 +298,9 @@ export default function index({ data }) {
                         {spots?.map((item) => (
                             <YMapMarker coordinates={[item.lat, item.lng]}>
                                 <MarkPopup
+                                    id={item.id}
                                     title={item?.title}
-                                    // score={item?.score}
-                                    descr={item?.description}
-                                    image={item?.images}
-                                    street={item?.address}
-                                    // user={item?.user}
-                                    figures={[
-                                        item?.pools,
-                                        item?.rail,
-                                        item?.ramps,
-                                        item?.slide,
-                                    ]}
-                                    // comments={item?.comments}
-                                    // user_image={item?.user_image}
+                                    score={item?.ratings_avg}
                                 />
                             </YMapMarker>
                         ))}

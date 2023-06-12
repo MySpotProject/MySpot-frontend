@@ -1,0 +1,88 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    gap: 12px;
+    align-items: center;
+    position: relative;
+    @media (max-width: 580px) {
+        flex-direction: column;
+        border: none;
+    }
+    & .middle {
+        align-self: flex-end;
+        & .spotUserName {
+            // align-self: self-end;
+            @media (max-width: 580px) {
+                width: auto;
+                align-items: center;
+                align-self: auto;
+            }
+            & .name {
+                position: relative;
+                & > * {
+                    font-size: 72px;
+                    font-family: "Black";
+                    @media (max-width: 580px) {
+                        font-size: calc(72px / 1.2);
+                    }
+                }
+            }
+        }
+        & .socials {
+            position: relative;
+            & li {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                margin-right: 14px;
+            }
+        }
+    }
+    & .score {
+        align-self: flex-start;
+        text-align: right;
+        flex: 1;
+        @media (max-width: 580px) {
+            align-self: center;
+            flex: auto;
+            text-align: center;
+        }
+    }
+
+    & .image {
+        width: 194px;
+        height: 194px;
+        // background-color: gray;
+        position: relative;
+        @media (max-width: 580px) {
+            width: calc(194px / 1.2);
+            height: calc(194px / 1.2);
+        }
+    }
+    & .slider {
+        width: 294px !important;
+    }
+    & ul {
+        margin: 0;
+        @media (max-width: 580px) {
+            justify-content: center;
+        }
+        & li {
+            max-width: 28px !important;
+            max-height: 28px !important;
+            position: relative;
+            transition: var(--transition-default);
+            transition-duration: 0.2s;
+            cursor: pointer;
+
+            & img {
+                height: 100%;
+            }
+        }
+    }
+}

@@ -32,7 +32,8 @@ export default function Header() {
     const nav = [
         { title: "Карта", url: "/map" },
         { title: "Трюки", url: "/tricks" },
-        { title: "О нас", url: "/about" },
+        { title: "Рейтинги", url: "/ratings" },
+        { title: "О нас", url: "/about-us" },
     ];
     const [isActive, setIsActive] = useState(false);
 
@@ -44,15 +45,17 @@ export default function Header() {
                         <Image src={images.logo} alt={"logo"} />
                     </Link>
                 </div>
-                <ul>
-                    {nav.map((item) => (
-                        <li key={item.title}>
-                            <Link href={item.url}>
-                                <p>{item.title}</p>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <nav>
+                    <ul>
+                        {nav.map((item) => (
+                            <li key={item.title}>
+                                <Link href={item.url}>
+                                    <p>{item.title}</p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
                 <div
                     className={cn(
                         styles.header__wrapper,

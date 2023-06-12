@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import DefaultButton from "../UI/defaultButton/defaultButton";
@@ -36,6 +36,7 @@ export default function SignUpFrom() {
                         nickname: "kostamen2",
                         email: "",
                         password: "",
+                        policy: false,
                     }}
                     validate={(values) => {
                         const errors = {};
@@ -55,13 +56,11 @@ export default function SignUpFrom() {
                     {({
                         values,
                         errors,
-                        touched,
                         handleChange,
                         handleBlur,
-                        handleSubmit,
-                        isSubmitting,
+                        setFieldValue,
                     }) => (
-                        <form onClick={handleSubmit} className={styles.form}>
+                        <form className={styles.form}>
                             <Input
                                 type="email"
                                 name="email"
@@ -85,7 +84,8 @@ export default function SignUpFrom() {
                                 disabled={
                                     errors.email ||
                                     errors.email === "" ||
-                                    values.password === ""
+                                    values.password === "" ||
+                                    values.policy === false
                                         ? true
                                         : false
                                 }
@@ -94,6 +94,39 @@ export default function SignUpFrom() {
                             </DefaultButton>
                             <div className={styles.link}>
                                 <Link href={"/login"}>Уже есть аккаунт?</Link>
+                                <div className={styles.policy}>
+                                    <label>
+                                        <Field
+                                            type="checkbox"
+                                            name="policy"
+                                            checked={values.policy}
+                                            onChange={(event) => {
+                                                const newValue =
+                                                    event.target.checked;
+                                                setFieldValue(
+                                                    "policy",
+                                                    newValue
+                                                );
+                                            }}
+                                        />
+                                    </label>
+                                    {console.log(values.policy)}
+                                    <p>
+                                        Я согласен на обработку личных данных,
+                                        согласно&nbsp;
+                                        <span>
+                                            <a
+                                                // onClick={() =>
+                                                //     router.push("/policy")
+                                                // }
+                                                href={"/policy"}
+                                                target="_blank"
+                                            >
+                                                политике конфиденциальности
+                                            </a>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </form>
                     )}
