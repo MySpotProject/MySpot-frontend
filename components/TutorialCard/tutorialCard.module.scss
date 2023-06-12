@@ -44,6 +44,9 @@
             font-size: 72px;
             font-family: "Black";
             text-transform: uppercase;
+            @media (max-width: 480px) {
+                font-size: calc(72px / 1.5);
+            }
         }
         & p {
             transform: translateZ(-20px) translateX(-9px);

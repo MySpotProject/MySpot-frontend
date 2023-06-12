@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import Input from "../UI/input/input";
 import styles from "./signinform.module.scss";
-import { getCookie, setCookie } from "cookies-next";
+import { setCookie, getCookie } from "cookies-next";
 
 export default function SignIn() {
     const router = useRouter();
@@ -18,14 +18,12 @@ export default function SignIn() {
         setSpinner(true);
 
         await axios
-            .post("/api/auth/login", values)
+            // .post("/api/auth/login", values)
+            .post(process.env.NEXT_PUBLIC_API + "/auth/sign_in", values)
             .then(function (response) {
                 setSpinner(false);
-                console.log("res", response);
-                // setCookie(
-                //     "222222222myspot_jwt",
-                //     response?.headers?.authorization,
-                // );
+                // console.log("res", response);
+                setCookie("myspot_jwt2222", response?.headers?.authorization);
                 router.reload();
             })
             .catch(function (error) {

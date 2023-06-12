@@ -50,7 +50,7 @@ export default function App({ Component, pageProps }) {
             </AnimatePresence>
             <ToastContainer
                 position="bottom-left"
-                autoClose={2000}
+                autoClose={10000}
                 hideProgressBar={true}
                 newestOnTop={false}
                 closeOnClick

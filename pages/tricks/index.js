@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TutorialCard from "@/components/TutorialCard/tutorialCard";
 import styles from "./tutorials.module.scss";
 import Spacer from "@/components/UI/spacer/spacer";
 import Pagination from "@/components/UI/Pagination/pagination";
 import Head from "next/head";
 import Search from "@/components/Search/search";
+import instance from "../../instanceAxios";
+import axios from "axios";
 
 const mockCards = [
     {
@@ -316,12 +318,14 @@ const mockCards = [
     },
 ];
 
-export default function index() {
-    const [tricks, setTricks] = React.useState([]);
-    const [fetching, setFetching] = React.useState(false);
-    const [currentPage, setCurrentPage] = React.useState(9);
+export default function index({ data }) {
+    const [tricks, setTricks] = useState(data);
+    console.log(tricks);
 
-    React.useEffect(() => {
+    const [fetching, setFetching] = useState(false);
+    const [currentPage, setCurrentPage] = useState(9);
+
+    useEffect(() => {
         document.addEventListener("scroll", scrollHandler);
         return function () {
             document.removeEventListener("scroll", scrollHandler);
@@ -341,7 +345,7 @@ export default function index() {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (fetching) {
             setTimeout(() => {
                 setCurrentPage((prev) => prev + 9);
@@ -376,17 +380,17 @@ export default function index() {
             <div className="main__height main__wrapper">
                 <Spacer size={"xl"} />
                 <div className={styles.filter}>
-                    <h1>TRICKS —</h1>
-                    <Search data={mockCards} placeholder="Search" />
+                    <h1>ТРЮКИ —</h1>
+                    <Search data={tricks} placeholder="Поиск" />
                 </div>
                 <Spacer size={"md"} />
                 <div className={styles.cards}>
-                    {mockCards.slice(0, currentPage).map((item) => (
+                    {tricks?.slice(0, currentPage).map((item) => (
                         <TutorialCard
-                            slug={"/"}
+                            slug={"tricks/" + item?.slug}
                             title={item.title}
-                            descr={item.descr}
-                            image={item.image}
+                            // descr={item.descr}
+                            image={item.images[0]}
                         />
                     ))}
                 </div>
@@ -396,4 +400,20 @@ export default function index() {
             </div>
         </>
     );
+}
+
+export async function getServerSideProps({ params }) {
+    try {
+        const tricks = await axios
+            .get(process.env.NEXT_PUBLIC_API + "/api/tricks.json")
+            .then((response) => response?.data);
+
+        return {
+            props: {
+                data: tricks,
+            },
+        };
+    } catch (error) {
+        return { redirect: { destination: "/", permanent: false } };
+    }
 }

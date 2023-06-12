@@ -1,14 +1,28 @@
-.default {
+.withOutBG {
+    background-color: transparent !important;
+    padding: 0 !important;
+    color: black !important;
+    &::before {
+        content: none !important;
+    }
+}
+.staticActive {
+    transition: 0.2s all ease-in-out;
+    &::before {
+        height: 99% !important;
+    }
+}
+
+.default,
+.withOutBG,
+.staticActive {
     border: none;
     background-color: black;
     color: white;
     cursor: pointer;
-    // letter-spacing: 2px;
-    // line-height: 80%;
     padding: 14px 24px;
     position: relative;
     overflow: hidden;
-
     & > p {
         text-transform: uppercase;
         font-family: "Bold";
