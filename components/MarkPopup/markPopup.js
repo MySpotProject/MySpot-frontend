@@ -112,7 +112,11 @@ export default function MarkPopup({ id, title, score }) {
                         <div className={styles.about__left}>
                             <h1 className={styles.left__title}>{title}</h1>
                             <div className={styles.left__bottom}>
-                                {isLoading && <ShimmerEffect height={18} />}
+                                {isLoading ? (
+                                    <ShimmerEffect height={18} />
+                                ) : (
+                                    false
+                                )}
 
                                 <p>{selectedSpot?.address}</p>
                                 {selectedSpot?.author && (
