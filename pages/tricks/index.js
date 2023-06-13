@@ -391,7 +391,10 @@ export default function index({ data }) {
                             slug={"tricks/" + item?.slug}
                             title={item.title}
                             // descr={item.descr}
-                            image={item.images[0]}
+                            // image={item.images[0]}
+                            image={
+                                "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg"
+                            }
                         />
                     ))}
                 </div>

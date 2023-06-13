@@ -65,11 +65,11 @@ export default function HeaderMenu() {
             setIsAuthorization(true);
             setNoAuthLoader(false);
             setGetUserData({
-                nickname: data.nickname,
-                avatar: data.avatar,
-                tg: data.tg,
-                vk: data.vk,
-                score: data.score,
+                nickname: data?.nickname,
+                avatar: data?.avatar?.url,
+                tg: !data?.tg ? "" : data?.tg,
+                vk: !data?.vk ? "" : data?.vk,
+                score: data?.score,
             });
             socialItems[0].url = data.tg;
             socialItems[1].url = data.vk;
@@ -158,6 +158,7 @@ export default function HeaderMenu() {
     };
 
     const handleSignOut = async () => {
+        console.log("анлог");
         await instance
             .delete("/auth/sign_out")
             .then(function (response) {
@@ -230,7 +231,11 @@ export default function HeaderMenu() {
                             {!isAvatarChange ? (
                                 <Image
                                     fill="cover"
-                                    src={getUserData.avatar.url}
+                                    src={
+                                        getUserData?.avatar
+                                            ? getUserData?.avatar
+                                            : ""
+                                    }
                                 />
                             ) : (
                                 <Image fill="cover" src={avatarPic[0]} />
@@ -358,7 +363,7 @@ export default function HeaderMenu() {
                         <h1> Принять</h1>
                     </DefaultButton>
                     <DefaultButton
-                        handleClick={handleSignOut}
+                        handleClick={() => handleSignOut()}
                         type={"withOutBG"}
                     >
                         <h1>Выйти</h1>

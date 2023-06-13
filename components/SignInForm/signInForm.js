@@ -29,7 +29,10 @@ export default function SignIn() {
             .then(function (response) {
                 setSpinner(false);
                 // console.log("res", response);
-                setCookie("myspot_jwt2222", response?.headers?.authorization);
+                setCookie("myspot_jwt2222", response?.headers?.authorization, {
+                    path: "/",
+                    maxAge: 60 * 60 * 24 * 7, // 7 дней
+                });
                 router.reload();
             })
             .catch(function (error) {

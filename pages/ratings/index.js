@@ -25,19 +25,19 @@ export default function Index() {
             score: 13,
             avatar: {
                 id: 21,
-                url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
             },
         },
         {
             id: 13,
             name: "lol",
-            nickname: "PIDORASIK",
+            nickname: "USER",
             vk: "https://vk.com/feed",
             tg: "https://t.me/r0sssp",
             score: 28,
             avatar: {
                 id: 36,
-                url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
             },
         },
     ];
@@ -50,10 +50,10 @@ export default function Index() {
             rating_avg: 3.0,
             images: [
                 {
-                    url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                    url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
                 },
                 {
-                    url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                    url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
                 },
             ],
         },
@@ -65,10 +65,10 @@ export default function Index() {
             rating_avg: 1.0,
             images: [
                 {
-                    url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                    url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
                 },
                 {
-                    url: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
+                    url: "https://klike.net/uploads/posts/2022-11/1667980142_030.jpg",
                 },
             ],
         },

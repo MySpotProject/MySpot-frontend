@@ -36,8 +36,8 @@ export default function index() {
     const developersData = [
         { position: "Frontend", name: "Олег Точеный" },
         { position: "Backend", name: "Константин Вернигоров" },
-        { position: "Tester", name: "Григорий Харчистов" },
-        { position: "Project Manager", name: "Юра Сухенко" },
+        { position: "QA", name: "Григорий Харчистов" },
+        { position: "Project Manager", name: "Юрий Сухенко" },
     ];
 
     return (

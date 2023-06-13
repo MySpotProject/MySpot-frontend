@@ -67,7 +67,7 @@
             & > * {
                 display: inline-block;
                 vertical-align: middle;
-                font-size: 24px;
+                font-size: 30px;
                 font-family: "Regular";
             }
             & .user {
@@ -139,11 +139,6 @@
             height: 26px;
             width: 24px;
         }
-    }
-    & .write_message {
-        width: 100%;
-        background-color: black;
-        height: 40px;
     }
 }
 

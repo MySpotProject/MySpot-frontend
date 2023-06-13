@@ -14,6 +14,7 @@ import Image from "next/image";
 import TutorialCard from "../../../components/TutorialCard/tutorialCard";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
 import { motion } from "framer-motion";
+import Slider from "../../../components/Slider/slider";
 
 export default function index({ trick, isLoading, tricks }) {
     const mockCards = [
@@ -81,37 +82,20 @@ export default function index({ trick, isLoading, tricks }) {
                 <Spacer size={"xl"} />
 
                 <h1 className={styles.title}>{trick.title} —</h1>
-
-                <Swiper
-                    className={styles.slider}
-                    spaceBetween={0}
-                    slidesPerView={
-                        mockCards?.length === 1
-                            ? 1
-                            : mockCards?.length === 2
-                            ? 2
-                            : mob768 && mockCards?.length > 2
-                            ? 2
-                            : 3
-                    }
-                    navigation
-                >
-                    {isLoadingState && (
-                        <SwiperSlide>
-                            <ShimmerEffect height={400} />
-                        </SwiperSlide>
-                    )}
-                    {mockCards?.map((item, i) => (
-                        <SwiperSlide>
-                            <Image
-                                src={item.src}
-                                alt={`${trick.title}`}
-                                fill="cover"
-                                placeholder={<ShimmerEffect />}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                <div className={styles.slider}>
+                    <Slider
+                        images={mockCards}
+                        perView={
+                            mockCards?.length === 1
+                                ? 1
+                                : mockCards?.length === 2
+                                ? 2
+                                : mob768 && mockCards?.length > 2
+                                ? 2
+                                : 3
+                        }
+                    />
+                </div>
                 {isLoadingState && <ShimmerEffect height={200} />}
                 <p className={styles.description}>{trick?.description}</p>
                 <Spacer size={"xl"} />

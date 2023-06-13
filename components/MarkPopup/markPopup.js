@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import styles from "./markPopup.module.scss";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import Image from "next/image";
 import like from "../../assets/images/like.svg";
@@ -16,6 +16,8 @@ import axios from "axios";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import { useRouter } from "next/router";
 import ShimmerEffect from "../UI/ShimmerEffect/shimmerEffect";
+import SendComment from "../SendComment/sendComment";
+import Slider from "../Slider/slider";
 
 export default function MarkPopup({ id, title, score }) {
     const router = useRouter();
@@ -24,13 +26,14 @@ export default function MarkPopup({ id, title, score }) {
     const [cookieState, setCookieState] = useState(false);
     const handleSpotClick = async (id) => {
         const cookie = getCookie("myspot_jwt2222");
-        cookie.length === 0 ? setCookieState(false) : setCookieState(true);
+        cookie?.length === 0 || cookie === undefined
+            ? setCookieState(false)
+            : setCookieState(true);
         const response = await axios.get(
             process.env.NEXT_PUBLIC_API + `/api/spot/${id}.json`
         );
         setSelectedSpot(response.data);
         setIsLoading(false);
-        console.log(response.data);
     };
     const [popupOpen, setPopupOpen] = useState(false);
     const [figure, setFigure] = useState([
@@ -50,6 +53,7 @@ export default function MarkPopup({ id, title, score }) {
         ]);
     }, [selectedSpot]);
 
+    console.log(selectedSpot);
     return (
         <div
             id={id}
@@ -80,34 +84,15 @@ export default function MarkPopup({ id, title, score }) {
             </div>
             {popupOpen && (
                 <div className={styles.spot__open}>
-                    <Swiper
-                        className={styles.image}
-                        spaceBetween={0}
-                        slidesPerView={1}
-                        navigation
-                    >
-                        {isLoading && (
-                            <div
-                                style={{
-                                    opacity: 1,
-                                    transition: "opacity 0.5s ease",
-                                }}
-                            >
-                                <SwiperSlide>
-                                    <ShimmerEffect />
-                                </SwiperSlide>
-                            </div>
-                        )}
-                        {selectedSpot?.images?.map((item, i) => (
-                            <SwiperSlide>
-                                <Image
-                                    src={item?.url}
-                                    alt={`${title}`}
-                                    fill="cover"
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    <div className={styles.image}>
+                        <Slider
+                            isLoading={isLoading}
+                            spot={true}
+                            images={selectedSpot?.images}
+                            perView={1}
+                            id={id}
+                        />
+                    </div>
                     <div className={styles.about}>
                         <div className={styles.about__left}>
                             <h1 className={styles.left__title}>{title}</h1>
@@ -119,32 +104,34 @@ export default function MarkPopup({ id, title, score }) {
                                 )}
 
                                 <p>{selectedSpot?.address}</p>
-                                {selectedSpot?.author && (
-                                    <>
-                                        <p>&nbsp; • &nbsp;</p>
-                                        <div
-                                            className={cn(
-                                                styles.user__image,
-                                                styles.user__image_small
-                                            )}
-                                        >
-                                            <Image
-                                                src={
-                                                    selectedSpot?.author.avatar
-                                                }
-                                                alt={
-                                                    selectedSpot?.author
-                                                        ?.nickname
-                                                }
-                                                fill="cover"
-                                            />
-                                        </div>
-                                        &nbsp;
-                                        <p className={styles.user}>
+                                {selectedSpot?.author &&
+                                    selectedSpot?.author?.avatar?.url && (
+                                        <>
+                                            <p>&nbsp; • &nbsp;</p>
+                                            <div
+                                                className={cn(
+                                                    styles.user__image,
+                                                    styles.user__image_small
+                                                )}
+                                            >
+                                                <Image
+                                                    src={
+                                                        selectedSpot?.author
+                                                            ?.avatar?.url
+                                                    }
+                                                    alt={
+                                                        selectedSpot?.author
+                                                            ?.nickname
+                                                    }
+                                                    fill="cover"
+                                                />
+                                            </div>
+                                            &nbsp;
+                                            {/* <p className={styles.user}>
                                             {selectedSpot?.author?.nickname}
-                                        </p>
-                                    </>
-                                )}
+                                        </p> */}
+                                        </>
+                                    )}
                             </div>
                         </div>
                         <div className={styles.about__right}>
@@ -199,7 +186,7 @@ export default function MarkPopup({ id, title, score }) {
                                 <>
                                     <hr />
                                     <p className={styles.descr}>
-                                        {selectedSpot.description}
+                                        {selectedSpot?.description}
                                     </p>
                                 </>
                             )}
@@ -208,7 +195,10 @@ export default function MarkPopup({ id, title, score }) {
                                 {/* {isLoading && <ShimmerEffect height={80} />} */}
                                 {selectedSpot?.comments?.map((item) => (
                                     <>
-                                        <div className={styles.comments__item}>
+                                        <div
+                                            key={item?.id}
+                                            className={styles.comments__item}
+                                        >
                                             <div className={styles.user}>
                                                 <div
                                                     className={
@@ -223,7 +213,8 @@ export default function MarkPopup({ id, title, score }) {
                                                     />
                                                 </div>
                                                 <p>
-                                                    &nbsp;{item?.user} •&nbsp;
+                                                    &nbsp;{item?.nickname}{" "}
+                                                    •&nbsp;
                                                 </p>
                                                 {/* <Image
                                             className={"svg"}
@@ -246,8 +237,13 @@ export default function MarkPopup({ id, title, score }) {
                                     </>
                                 ))}
                             </div>
-
-                            <div className={styles.write_message}></div>
+                            <SendComment id={id} />
+                            {/* <div className={styles.write_message}>
+                                <input value={"Привет ну и говно"} />
+                                <button>
+                                    <p>{">"}</p>
+                                </button>
+                            </div> */}
                         </>
                     )}
                 </div>
