@@ -3,6 +3,8 @@ import Spacer from "../../components/UI/spacer/spacer";
 import images from "../../constants/images";
 import Image from "next/image";
 import Head from "next/head";
+import styles from "./aboutus.module.scss";
+import { motion } from "framer-motion";
 
 export default function index() {
     const mockData = [
@@ -37,13 +39,14 @@ export default function index() {
         { position: "Tester", name: "Григорий Харчистов" },
         { position: "Project Manager", name: "Юра Сухенко" },
     ];
+
     return (
-        <>
+        <motion.div className={styles.wrapper}>
             <Head></Head>
             <div className="main__height main__wrapper">
                 <Spacer size="xl" />
-                <section className={"aboutUs"}>
-                    <div className={"aboutUs_text"}>
+                <section className={styles.aboutUs}>
+                    <div className={styles.aboutUs_text}>
                         <h1>МЫ КОМАНДА MY SPOT</h1>
                         <h3>
                             любим печеньки любим печеньки любим печеньки любим
@@ -55,11 +58,11 @@ export default function index() {
                 </section>
                 <Spacer size="xl" />
 
-                <section className={"news_layout"}>
+                <section className={styles.news_layout}>
                     <h1>НОВОСТИ —</h1>
-                    <div className={"news_container"}>
+                    <div className={styles.news_container}>
                         {mockData.map((item) => (
-                            <div className={"news"}>
+                            <div className={styles.news}>
                                 <h1>{item.date}</h1>
                                 <h2>{item.title}</h2>
                                 <p>{item.descr}</p>
@@ -69,12 +72,12 @@ export default function index() {
                 </section>
 
                 <Spacer size="xl" />
-                <section className={"developers"}>
+                <section className={styles.developers}>
                     <h1>РАЗРАБОТЧИКИ —</h1>
                     <Spacer size="md" />
-                    <div className={"developers_layout"}>
+                    <div className={styles.developers_layout}>
                         {developersData.map((item) => (
-                            <div className={"developer_item"}>
+                            <div className={styles.developer_item}>
                                 <h1>{item?.position}</h1>
                                 <h2>{item?.name}</h2>
                             </div>
@@ -83,6 +86,6 @@ export default function index() {
                 </section>
                 <Spacer size="xl" />
             </div>
-        </>
+        </motion.div>
     );
 }

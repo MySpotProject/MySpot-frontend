@@ -1,16 +1,19 @@
+import styles from "./policy.module.scss";
 import React from "react";
 import Spacer from "../../components/UI/spacer/spacer";
 import Head from "next/head";
 import cn from "classnames";
+import { motion } from "framer-motion";
+
 export default function index() {
     return (
-        <>
+        <motion.div className={styles.wrapper}>
             <Head>
                 <title>
                     MY SPOT | Согласие на обработку персональных данных
                 </title>
             </Head>
-            <div className={cn("main__height main__wrapper policy_wrapper")}>
+            <div className={cn("main__height main__wrapper", styles.wrapper)}>
                 <Spacer size={"xl"} />
                 <h1>Согласие на обработку персональных данных</h1>
                 <Spacer size={"sm"} />
@@ -273,6 +276,6 @@ export default function index() {
                 <h3>С уважением, команда MY SPOT</h3>
                 <Spacer size={"xl"} />
             </div>
-        </>
+        </motion.div>
     );
 }

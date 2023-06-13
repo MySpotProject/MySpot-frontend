@@ -1,9 +1,11 @@
+import styles from "./main.module.scss";
 import React from "react";
 import Image from "next/image";
 import images from "constants/images";
 import { useRouter } from "next/router";
 import useWindowSize from "Hooks/useWindowSize";
 import Head from "next/head";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
     // console.log("credentials", data);
@@ -36,7 +38,7 @@ export default function HomePage() {
     const moveCenterY = -y / 30 + "px";
 
     return (
-        <>
+        <motion.div className={styles.wrapper}>
             <Head>
                 <title>MY SPOT</title>
                 <meta
@@ -55,15 +57,15 @@ export default function HomePage() {
                     href="/icon.svg"
                 />
             </Head>
-            <div className={"main_wrapper"}>
+            <div className={styles.main_wrapper}>
                 <div
-                    className={"main_backGround"}
+                    className={styles.main_backGround}
                     style={{
                         transform: `translate(${moveBackX}, ${moveBackY})`,
                         transformStyle: "preserve-3d",
                     }}
                 ></div>
-                <div className={"main_container"} onClick={handleClick}>
+                <div className={styles.main_container} onClick={handleClick}>
                     <Image
                         src={images.logo}
                         alt="Logo"
@@ -74,7 +76,7 @@ export default function HomePage() {
                     />
                 </div>
             </div>
-        </>
+        </motion.div>
     );
 }
 

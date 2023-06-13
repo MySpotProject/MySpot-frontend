@@ -1,3 +1,4 @@
+import styles from "./tutorials.module.scss";
 import React, { useEffect, useState } from "react";
 import TutorialCard from "@/components/TutorialCard/tutorialCard";
 import Spacer from "@/components/UI/spacer/spacer";
@@ -6,6 +7,7 @@ import Head from "next/head";
 import Search from "@/components/Search/search";
 import instance from "../../instanceAxios";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const mockCards = [
     {
@@ -353,7 +355,7 @@ export default function index({ data }) {
     }, [fetching]);
 
     return (
-        <>
+        <motion.div className={styles.warpper}>
             <Head>
                 <title>MY SPOT | TRICKS</title>
                 <meta
@@ -378,12 +380,12 @@ export default function index({ data }) {
             </Head>
             <div className="main__height main__wrapper">
                 <Spacer size={"xl"} />
-                <div className={"filter"}>
+                <div className={styles.filter}>
                     <h1>ТРЮКИ —</h1>
                     <Search data={tricks} placeholder="Поиск" />
                 </div>
                 <Spacer size={"md"} />
-                <div className={"cards"}>
+                <div className={styles.cards}>
                     {tricks?.slice(0, currentPage).map((item) => (
                         <TutorialCard
                             slug={"tricks/" + item?.slug}
@@ -397,7 +399,7 @@ export default function index({ data }) {
                 {/* <Pagination /> */}
                 <Spacer size={"xl"} />
             </div>
-        </>
+        </motion.div>
     );
 }
 

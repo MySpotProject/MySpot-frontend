@@ -1,3 +1,4 @@
+import styles from "./trick.module.scss";
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
@@ -12,6 +13,7 @@ import ShimmerEffect from "../../../components/UI/ShimmerEffect/shimmerEffect";
 import Image from "next/image";
 import TutorialCard from "../../../components/TutorialCard/tutorialCard";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
+import { motion } from "framer-motion";
 
 export default function index({ trick, isLoading, tricks }) {
     const mockCards = [
@@ -40,7 +42,7 @@ export default function index({ trick, isLoading, tricks }) {
     }, [isLoading]);
 
     return (
-        <>
+        <motion.div className={styles.wrapper}>
             <Head>
                 <title>
                     {"MY SPOT | как сделать " +
@@ -75,13 +77,13 @@ export default function index({ trick, isLoading, tricks }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className={"main__height main__wrapper trick_page"}>
+            <div className={"main__height main__wrapper"}>
                 <Spacer size={"xl"} />
 
-                <h1 className={"title"}>{trick.title} —</h1>
+                <h1 className={styles.title}>{trick.title} —</h1>
 
                 <Swiper
-                    className={"slider"}
+                    className={styles.slider}
                     spaceBetween={0}
                     slidesPerView={
                         mockCards?.length === 1
@@ -111,10 +113,10 @@ export default function index({ trick, isLoading, tricks }) {
                     ))}
                 </Swiper>
                 {isLoadingState && <ShimmerEffect height={200} />}
-                <p className={"description"}>{trick?.description}</p>
+                <p className={styles.description}>{trick?.description}</p>
                 <Spacer size={"xl"} />
                 <h1>ЕЩЁ ТРЮКИ —</h1>
-                <div className={"anotherTricks"}>
+                <div className={styles.anotherTricks}>
                     {tricks.map((item) => (
                         <TutorialCard
                             // image={item?.images}
@@ -126,7 +128,7 @@ export default function index({ trick, isLoading, tricks }) {
                 </div>
             </div>
             <Spacer size={"xl"} />
-        </>
+        </motion.div>
     );
 }
 

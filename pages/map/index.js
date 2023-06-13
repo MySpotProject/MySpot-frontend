@@ -1,9 +1,11 @@
+import styles from "./map.module.scss";
 import Head from "next/head";
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import MarkPopup from "@/components/MarkPopup/markPopup";
 import AddNewSpot from "../../components/AddNewSpot/addNewSpot";
 import axios from "axios";
+import { motion } from "framer-motion";
 // import { useGeolocated } from "react-geolocated";
 
 const mockData = [
@@ -285,7 +287,7 @@ export default function index({ data }) {
                         <YMapLayer />
 
                         <YMapMarker coordinates={myCoords.coords}>
-                            <p className={"spot__mark"}>Я</p>
+                            <p className={styles.spot__mark}>Я</p>
                         </YMapMarker>
                         <YMapListener
                             layer={"any"}
@@ -330,9 +332,8 @@ export default function index({ data }) {
             map.current = null;
         };
     }, []);
-
     return (
-        <>
+        <motion.div className={styles.mapWrapper}>
             <Head>
                 <title>MY SPOT | SPOTS</title>
                 <meta
@@ -347,7 +348,7 @@ export default function index({ data }) {
                 <AddNewSpot latlnd={getCenterCoords} />
                 {YMaps}
             </div>
-        </>
+        </motion.div>
     );
 }
 

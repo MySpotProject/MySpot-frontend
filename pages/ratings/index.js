@@ -1,7 +1,10 @@
+import styles from "./ratings.module.scss";
 import React, { useRef, useState } from "react";
 import Spacer from "../../components/UI/spacer/spacer";
 import DefaultButton from "../../components/UI/defaultButton/defaultButton";
 import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
+import { motion } from "framer-motion";
+import cn from "classnames";
 
 export default function Index() {
     const [selectedValue, setSelectedValue] = useState("spots");
@@ -72,11 +75,13 @@ export default function Index() {
     ];
 
     return (
-        <div className="main__height main__wrapper">
+        <motion.div
+            className={cn("main__height main__wrapper", styles.wrapper)}
+        >
             <Spacer size="xl" />
             <h1>РЕЙТИНГИ —</h1>
-            <div className={"raiting_layout"}>
-                <div className={"raiting_buttons"}>
+            <div className={styles.raiting_layout}>
+                <div className={styles.raiting_buttons}>
                     <DefaultButton
                         type="staticActive"
                         handleClick={() => handleButtonClick("spots")}
@@ -104,7 +109,7 @@ export default function Index() {
                         </p>
                     </DefaultButton>
                 </div>
-                <div className={"raiting_container"}>
+                <div className={styles.raiting_container}>
                     {selectedValue === "users" &&
                         userMockData.map((item) => (
                             <div ref={usersRef}>
@@ -130,6 +135,6 @@ export default function Index() {
                 </div>
             </div>
             <Spacer size="xl" />
-        </div>
+        </motion.div>
     );
 }

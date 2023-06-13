@@ -6,6 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import "../scss/index.scss";
 import Header from "@/components/Header/header";
 import Footer from "@/components/Footer/footer";
+import cn from "classnames";
+
+import about from "./about-us/aboutus.module.scss";
+import map from "./map/map.module.scss";
+import policy from "./policy/policy.module.scss";
+import ratings from "./ratings/ratings.module.scss";
+import tricks from "./tricks/tutorials.module.scss";
+import trickPage from "./tricks/[slug]/trick.module.scss";
+import main from "./main.module.scss";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
@@ -19,14 +28,15 @@ export default function App({ Component, pageProps }) {
                 ></script>
             </Head>
             <Header />
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence mode="wait">
                 <motion.div
                     key={router.route}
                     initial="initialState"
                     animate="animateState"
                     exit="exitState"
                     transition={{
-                        duration: 0.75,
+                        duration: 1,
+                        ease: "easeInOut",
                     }}
                     variants={{
                         initialState: {
@@ -43,7 +53,16 @@ export default function App({ Component, pageProps }) {
                                 "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)",
                         },
                     }}
-                    className="base-page-size"
+                    style={{ position: "relative" }}
+                    className={cn(
+                        about,
+                        map,
+                        policy,
+                        ratings,
+                        tricks,
+                        trickPage,
+                        main
+                    )}
                 >
                     <Component {...pageProps} />
                 </motion.div>
