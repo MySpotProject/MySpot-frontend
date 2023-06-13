@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TutorialCard from "@/components/TutorialCard/tutorialCard";
-import styles from "./tutorials.module.scss";
 import Spacer from "@/components/UI/spacer/spacer";
 import Pagination from "@/components/UI/Pagination/pagination";
 import Head from "next/head";
@@ -379,12 +378,12 @@ export default function index({ data }) {
             </Head>
             <div className="main__height main__wrapper">
                 <Spacer size={"xl"} />
-                <div className={styles.filter}>
+                <div className={"filter"}>
                     <h1>ТРЮКИ —</h1>
                     <Search data={tricks} placeholder="Поиск" />
                 </div>
                 <Spacer size={"md"} />
-                <div className={styles.cards}>
+                <div className={"cards"}>
                     {tricks?.slice(0, currentPage).map((item) => (
                         <TutorialCard
                             slug={"tricks/" + item?.slug}

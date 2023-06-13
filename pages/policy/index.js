@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./policy.module.scss";
 import Spacer from "../../components/UI/spacer/spacer";
 import Head from "next/head";
 import cn from "classnames";
@@ -11,7 +10,7 @@ export default function index() {
                     MY SPOT | Согласие на обработку персональных данных
                 </title>
             </Head>
-            <div className={cn("main__height main__wrapper", styles.wrapper)}>
+            <div className={cn("main__height main__wrapper policy_wrapper")}>
                 <Spacer size={"xl"} />
                 <h1>Согласие на обработку персональных данных</h1>
                 <Spacer size={"sm"} />

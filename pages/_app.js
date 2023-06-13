@@ -6,35 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "../scss/index.scss";
 import Header from "@/components/Header/header";
 import Footer from "@/components/Footer/footer";
-import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
-    const [isAnimating, setIsAnimating] = useState(false);
-
-    useEffect(() => {
-        const handleRouteChangeStart = () => {
-            setIsAnimating(true);
-        };
-
-        const handleRouteChangeComplete = () => {
-            setIsAnimating(false);
-        };
-
-        router.events.on("routeChangeStart", handleRouteChangeStart);
-        router.events.on("routeChangeComplete", handleRouteChangeComplete);
-
-        return () => {
-            router.events.off("routeChangeStart", handleRouteChangeStart);
-            router.events.off("routeChangeComplete", handleRouteChangeComplete);
-        };
-    }, [router]);
-
-    const onAnimationComplete = () => {
-        if (!isAnimating) {
-            router.push(router.route);
-        }
-    };
 
     return (
         <>
@@ -45,26 +19,31 @@ export default function App({ Component, pageProps }) {
                 ></script>
             </Head>
             <Header />
-            <AnimatePresence>
+            <AnimatePresence exitBeforeEnter>
                 <motion.div
                     key={router.route}
-                    initial={{
-                        zIndex: 10,
-                        background: "white",
-                        clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
-                    }}
-                    animate={{
-                        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-                    }}
-                    exit={{
-                        clipPath:
-                            "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)",
-                    }}
+                    initial="initialState"
+                    animate="animateState"
+                    exit="exitState"
                     transition={{
-                        duration: 1,
-                        ease: "easeInOut",
+                        duration: 0.75,
                     }}
-                    onAnimationComplete={onAnimationComplete}
+                    variants={{
+                        initialState: {
+                            zIndex: 10,
+                            background: "white",
+                            clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+                        },
+                        animateState: {
+                            clipPath:
+                                "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+                        },
+                        exitState: {
+                            clipPath:
+                                "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)",
+                        },
+                    }}
+                    className="base-page-size"
                 >
                     <Component {...pageProps} />
                 </motion.div>

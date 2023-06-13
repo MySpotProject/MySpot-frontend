@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "./trick.module.scss";
 import Head from "next/head";
 import axios from "axios";
 import Spacer from "../../../components/UI/spacer/spacer";
@@ -40,9 +39,6 @@ export default function index({ trick, isLoading, tricks }) {
         }
     }, [isLoading]);
 
-    console.log("trick", trick);
-
-    console.log(mockCards);
     return (
         <>
             <Head>
@@ -79,13 +75,13 @@ export default function index({ trick, isLoading, tricks }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className={"main__height main__wrapper"}>
+            <div className={"main__height main__wrapper trick_page"}>
                 <Spacer size={"xl"} />
 
-                <h1 className={styles.title}>{trick.title} —</h1>
+                <h1 className={"title"}>{trick.title} —</h1>
 
                 <Swiper
-                    className={styles.slider}
+                    className={"slider"}
                     spaceBetween={0}
                     slidesPerView={
                         mockCards?.length === 1
@@ -115,10 +111,10 @@ export default function index({ trick, isLoading, tricks }) {
                     ))}
                 </Swiper>
                 {isLoadingState && <ShimmerEffect height={200} />}
-                <p className={styles.description}>{trick?.description}</p>
+                <p className={"description"}>{trick?.description}</p>
                 <Spacer size={"xl"} />
                 <h1>ЕЩЁ ТРЮКИ —</h1>
-                <div className={styles.anotherTricks}>
+                <div className={"anotherTricks"}>
                     {tricks.map((item) => (
                         <TutorialCard
                             // image={item?.images}

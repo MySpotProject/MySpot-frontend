@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import styles from "./ratings.module.scss";
 import Spacer from "../../components/UI/spacer/spacer";
 import DefaultButton from "../../components/UI/defaultButton/defaultButton";
 import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
@@ -76,8 +75,8 @@ export default function Index() {
         <div className="main__height main__wrapper">
             <Spacer size="xl" />
             <h1>РЕЙТИНГИ —</h1>
-            <div className={styles.raiting_layout}>
-                <div className={styles.buttons}>
+            <div className={"raiting_layout"}>
+                <div className={"raiting_buttons"}>
                     <DefaultButton
                         type="staticActive"
                         handleClick={() => handleButtonClick("spots")}
@@ -105,7 +104,7 @@ export default function Index() {
                         </p>
                     </DefaultButton>
                 </div>
-                <div className={styles.raiting_container}>
+                <div className={"raiting_container"}>
                     {selectedValue === "users" &&
                         userMockData.map((item) => (
                             <div ref={usersRef}>

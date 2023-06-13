@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import styles from "./map.module.scss";
 import MarkPopup from "@/components/MarkPopup/markPopup";
 import AddNewSpot from "../../components/AddNewSpot/addNewSpot";
 import axios from "axios";
@@ -286,7 +285,7 @@ export default function index({ data }) {
                         <YMapLayer />
 
                         <YMapMarker coordinates={myCoords.coords}>
-                            <p className={styles.spot__mark}>Я</p>
+                            <p className={"spot__mark"}>Я</p>
                         </YMapMarker>
                         <YMapListener
                             layer={"any"}

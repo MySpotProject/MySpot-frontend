@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./main.module.scss";
 import Image from "next/image";
 import images from "constants/images";
 import { useRouter } from "next/router";
@@ -56,15 +55,15 @@ export default function HomePage() {
                     href="/icon.svg"
                 />
             </Head>
-            <div className={styles.wrapper}>
+            <div className={"main_wrapper"}>
                 <div
-                    className={styles.backGround}
+                    className={"main_backGround"}
                     style={{
                         transform: `translate(${moveBackX}, ${moveBackY})`,
                         transformStyle: "preserve-3d",
                     }}
                 ></div>
-                <div className={styles.main} onClick={handleClick}>
+                <div className={"main_container"} onClick={handleClick}>
                     <Image
                         src={images.logo}
                         alt="Logo"
