@@ -1,11 +1,12 @@
 import React from "react";
 import Spacer from "components/UI/spacer/spacer";
 import SignIn from "components/SignInForm/signInForm";
+import { motion } from "framer-motion";
 
 export default function index() {
     return (
-        <>
-            <div
+        <motion.div>
+            <motion.div
                 style={{
                     height: "100vh",
                 }}
@@ -20,7 +21,7 @@ export default function index() {
                 >
                     <SignIn />
                 </div>
-            </div>
-        </>
+            </motion.div>
+        </motion.div>
     );
 }
