@@ -81,7 +81,7 @@ export default function Index() {
             <Spacer size="xl" />
             <h1>РЕЙТИНГИ —</h1>
             <div className={styles.raiting_layout}>
-                <div className={styles.raiting_buttons}>
+                <div className={styles.buttons}>
                     <DefaultButton
                         type="staticActive"
                         handleClick={() => handleButtonClick("spots")}

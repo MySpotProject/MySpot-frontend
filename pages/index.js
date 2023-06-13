@@ -57,15 +57,15 @@ export default function HomePage() {
                     href="/icon.svg"
                 />
             </Head>
-            <div className={styles.main_wrapper}>
+            <div className={styles.wrapper}>
                 <div
-                    className={styles.main_backGround}
+                    className={styles.backGround}
                     style={{
                         transform: `translate(${moveBackX}, ${moveBackY})`,
                         transformStyle: "preserve-3d",
                     }}
                 ></div>
-                <div className={styles.main_container} onClick={handleClick}>
+                <div className={styles.main} onClick={handleClick}>
                     <Image
                         src={images.logo}
                         alt="Logo"

@@ -18,25 +18,3 @@
         width: 50%;
     }
 }
-
-.items .item-enter {
-    opacity: 0;
-    transform: translateX(-100%);
-}
-
-.items .item-enter-active {
-    opacity: 1;
-    transform: translateX(0%);
-    transition: all 500ms;
-}
-
-.items .item-exit {
-    opacity: 1;
-    transform: translateX(0%);
-}
-
-.items .item-exit-active {
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 500ms;
-}
