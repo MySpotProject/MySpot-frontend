@@ -1,6 +1,7 @@
+"use client";
 import styles from "./map.module.scss";
 import Head from "next/head";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import ReactDOM from "react-dom";
 import MarkPopup from "@/components/MarkPopup/markPopup";
 import AddNewSpot from "../../components/AddNewSpot/addNewSpot";
@@ -8,177 +9,10 @@ import axios from "axios";
 import { motion } from "framer-motion";
 // import { useGeolocated } from "react-geolocated";
 
-const mockData = [
-    {
-        title: "спот",
-        score: "1 .48",
-        coords: [39.719349, 47.221078],
-        descr: "Ну есть где покушаьт",
-        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        street: "7th Street",
-        user: "User",
-        user_image:
-            "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        figures: [
-            { pool: false },
-            { ramp: true },
-            { rail: false },
-            { ladder: true },
-            { slide_elements: true },
-        ],
-        comments: [
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "покушать негде, берите с собой",
-                score: true,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "EoneGuy",
-                message: "Отвратительно!",
-                score: true,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "Potolok",
-                message: "прикольно, хз",
-                score: false,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "Jabri",
-                message: "Плохо",
-                score: true,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "Плохо",
-                score: false,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "луковый угар",
-                score: true,
-            },
-        ],
-    },
-    {
-        title: "СПОТ",
-        score: "5",
-        coords: [39.720349, 47.223078],
-        descr: "ОПИСАНИЕ DESCRIPTION лол лол лол ЛОЛ лОл",
-        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        street: "7th Street",
-        user: "MC KOSTAMEN",
-        user_image:
-            "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        figures: [
-            { pool: false },
-            { ramp: false },
-            { rail: false },
-            { ladder: true },
-            { slide_elements: true },
-        ],
-
-        comments: [
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "покушать негде, берите с собой",
-                score: true,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "TRASH!!!",
-                score: false,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "луковый угар",
-                score: true,
-            },
-        ],
-    },
-    {
-        title: "XSA Ramps",
-        score: "3 .48",
-        coords: [39.722149, 47.222078],
-        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        street: "7th Street",
-        user: "Коклюш",
-        user_image:
-            "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        figures: [
-            { pool: false },
-            { ramp: true },
-            { rail: false },
-            { ladder: true },
-            { slide_elements: false },
-        ],
-
-        comments: [
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "GtaV",
-                message: "TRASH!!!",
-                score: false,
-            },
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "User",
-                message: "луковый угар",
-                score: true,
-            },
-        ],
-    },
-
-    {
-        title: "СПОТ",
-        score: "3 .48",
-        coords: [39.733149, 47.222078],
-        image: "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        street: "7th Street",
-        user: "Коклюш",
-        user_image:
-            "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-        figures: [
-            { pool: false },
-            { ramp: true },
-            { rail: false },
-            { ladder: false },
-            { slide_elements: false },
-        ],
-
-        comments: [
-            {
-                user_image:
-                    "https://sk-briz.ru/wp-content/uploads/8/d/f/8df9d95af3d7f598d8daacf1a1c6fd1f.jpeg",
-                user: "GtaV",
-                message: "TRASH!!!",
-                score: false,
-            },
-        ],
-    },
-];
-
 export default function index({ data }) {
-    const [spots, setSpots] = useState(data);
+    // const [spots, setSpots] = useState(data);
+    const spots = useMemo(() => data, [data]);
+    console.log(spots);
 
     const [YMaps, setYMaps] = useState(<div />);
     const [getZoom, setGetZoom] = useState(17);
@@ -297,7 +131,9 @@ export default function index({ data }) {
                         />
 
                         {spots?.map((item) => (
-                            <YMapMarker coordinates={[item.lat, item.lng]}>
+                            <YMapMarker
+                                coordinates={[item.coords[0], item.coords[1]]}
+                            >
                                 <MarkPopup
                                     id={item.id}
                                     title={item?.title}
@@ -335,7 +171,7 @@ export default function index({ data }) {
     return (
         <motion.div className={styles.mapWrapper}>
             <Head>
-                <title>MY SPOT | SPOTS</title>
+                <title>MY SPOT | SPOTS, СПОТЫ, СКЕЙТ-ПАРКИ</title>
                 <meta
                     name="description"
                     content="Generated by create next app"

@@ -2,28 +2,25 @@ import styles from "./markPopup.module.scss";
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import Image from "next/image";
-import like from "../../assets/images/like.svg";
-import dislike from "../../assets/images/dislike.svg";
 import { getCookie } from "cookies-next";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import axios from "axios";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import { useRouter } from "next/router";
 import ShimmerEffect from "../UI/ShimmerEffect/shimmerEffect";
 import SendComment from "../SendComment/sendComment";
 import Slider from "../Slider/slider";
+import Comment from "../Comment/comment";
+import axios from "axios";
+import images from "../../constants/images";
+import SetRating from "../SetRating/setRating";
+import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
 
 export default function MarkPopup({ id, title, score }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [selectedSpot, setSelectedSpot] = useState(null);
     const [cookieState, setCookieState] = useState(false);
+    console.log("selectedSpot", selectedSpot);
+
     const handleSpotClick = async (id) => {
         const cookie = getCookie("myspot_jwt2222");
         cookie?.length === 0 || cookie === undefined
@@ -53,7 +50,6 @@ export default function MarkPopup({ id, title, score }) {
         ]);
     }, [selectedSpot]);
 
-    console.log(selectedSpot);
     return (
         <div
             id={id}
@@ -80,7 +76,10 @@ export default function MarkPopup({ id, title, score }) {
                         X
                     </p>
                 )}
-                <p className={styles.spot__score}>{score}</p>
+                <p className={styles.spot__score}>
+                    {score?.toString()?.replace(".", " . ")}
+                </p>
+                {popupOpen && <SetRating id={id} />}
             </div>
             {popupOpen && (
                 <div className={styles.spot__open}>
@@ -191,52 +190,10 @@ export default function MarkPopup({ id, title, score }) {
                                 </>
                             )}
                             <hr />
-                            <div className={styles.comments}>
-                                {/* {isLoading && <ShimmerEffect height={80} />} */}
-                                {selectedSpot?.comments?.map((item) => (
-                                    <>
-                                        <div
-                                            key={item?.id}
-                                            className={styles.comments__item}
-                                        >
-                                            <div className={styles.user}>
-                                                <div
-                                                    className={
-                                                        styles.user__image
-                                                    }
-                                                >
-                                                    <Image
-                                                        src={item?.avatar}
-                                                        alt={item?.nickname}
-                                                        fill="cover"
-                                                        placeholder="empty"
-                                                    />
-                                                </div>
-                                                <p>
-                                                    &nbsp;{item?.nickname}{" "}
-                                                    •&nbsp;
-                                                </p>
-                                                {/* <Image
-                                            className={"svg"}
-                                            src={item?.score ? like : dislike}
-                                            alt={item?.user}
-                                            width={
-                                                item?.score === true ? 20 : 24
-                                            }
-                                        /> */}
-                                                <p>&nbsp;•&nbsp;</p>
-                                                <p className={styles.date}>
-                                                    14.05.23
-                                                </p>
-                                            </div>
-                                            <p className={styles.message}>
-                                                {item?.content}
-                                            </p>
-                                            <hr style={{ opacity: "0.4" }} />
-                                        </div>
-                                    </>
-                                ))}
-                            </div>
+                            <Comment
+                                comments={selectedSpot?.comments}
+                                userRatings={selectedSpot?.rating}
+                            />
                             <SendComment id={id} />
                             {/* <div className={styles.write_message}>
                                 <input value={"Привет ну и говно"} />

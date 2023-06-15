@@ -1,13 +1,31 @@
 import styles from "./ratings.module.scss";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Spacer from "../../components/UI/spacer/spacer";
 import DefaultButton from "../../components/UI/defaultButton/defaultButton";
 import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
 import { motion } from "framer-motion";
 import cn from "classnames";
+import instance from "../../instanceAxios";
+import { useRouter } from "next/router";
 
 export default function Index() {
+    const router = useRouter();
     const [selectedValue, setSelectedValue] = useState("spots");
+
+    const [users, setUsers] = useState();
+    const [spots, setSpots] = useState();
+    async function getData() {
+        try {
+            const resUsers = instance.get("/api/users/top10.json");
+            setUsers(resUsers);
+        } catch {
+            console.log("erroe");
+        }
+    }
+    useEffect(() => {
+        getData();
+        console.log("getIser", users);
+    }, [router]);
 
     const handleButtonClick = (value) => {
         setSelectedValue(value);
@@ -138,3 +156,22 @@ export default function Index() {
         </motion.div>
     );
 }
+
+// export async function getServerSideProps({ params }) {
+//     try {
+//         const users = await instance
+//             .get("/api/users/top10.json")
+//             .then((response) => response?.data);
+//         const spots = await instance
+//             .get("/api/spots/top10.json")
+//             .then((response) => response?.data);
+
+//         return {
+//             props: {
+//                 data: users,
+//             },
+//         };
+//     } catch (error) {
+//         return { redirect: { destination: "/", permanent: false } };
+//     }
+// }

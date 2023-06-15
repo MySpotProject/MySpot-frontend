@@ -19,6 +19,8 @@ export default function RatingsLayout({
     score,
     rating,
     address,
+    baloon,
+    closeFn,
 }) {
     const exapmleSocialItems = [
         {
@@ -37,7 +39,12 @@ export default function RatingsLayout({
     ];
     console.log(spotImages);
     return (
-        <div className={styles.wrapper}>
+        <div className={cn(styles.wrapper, styles[baloon && "popOverSpot"])}>
+            {baloon && (
+                <div className={styles.close} onClick={closeFn}>
+                    X
+                </div>
+            )}
             {avatar && (
                 <div className={cn(styles.image, styles.slider)}>
                     <Image fill="cover" src={avatar} />

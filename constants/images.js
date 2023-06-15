@@ -7,6 +7,7 @@ import email from "../assets/images/email.svg";
 import railingLeft from "../assets/images/railings_left.svg";
 import railingRight from "../assets/images/railings_right.svg";
 import railings from "../assets/images/railings.svg";
+import star from "../assets/images/star.svg";
 
 export default {
     logo,
@@ -18,4 +19,5 @@ export default {
     railingLeft,
     railingRight,
     railings,
+    star,
 };

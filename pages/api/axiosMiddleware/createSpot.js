@@ -25,23 +25,25 @@ export default async function (req, res) {
         }
         // values = { ...fields, "spot[images][]": files["spot[images][]"] };
         const formData = new FormData();
-        const data = {};
-        for (const [key, value] of Object.entries(fields)) {
-            // data[key] = value;
-            formData.append([key], value);
-        }
-        for (const [key, value] of Object.entries(files)) {
-            formData.append([key], value);
-        }
-        console.log(formData);
-        // Object.keys(fields).forEach((fieldName) => {
-        //     formData.append(fieldName, fields[fieldName]);
-        // });
+        // const data = {};
+        // for (const [key, value] of Object.entries(fields)) {
+        //     // data[key] = value;
+        //     formData.append([key], value);
+        // }
+        // for (const [key, value] of Object.entries(files)) {
+        //     formData.append([key], value);
+        // }
+
+        Object.keys(fields).forEach((fieldName) => {
+            formData.append(fieldName, fields[fieldName]);
+        });
         // console.log(files);
         // Object.keys(files).forEach((fileFieldName) => {
         //     formData.append(fileFieldName, files[fileFieldName]);
         // });
+        console.log(formData);
 
+        // console.log(data);
         // const obj = {};
         // for (let key of formData.keys()) {
         //     obj[key] = formData.get(key);

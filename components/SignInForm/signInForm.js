@@ -31,19 +31,21 @@ export default function SignIn() {
                 // console.log("res", response);
                 setCookie("myspot_jwt2222", response?.headers?.authorization, {
                     path: "/",
-                    maxAge: 60 * 60 * 24 * 7, // 7 дней
+                    // maxAge: 60 * 60 * 24 * 7, // 7 дней
                 });
                 router.reload();
             })
             .catch(function (error) {
                 console.error("err", error);
                 setSpinner(false);
-                if (error?.response?.data?.error?.errors) {
-                    // toast.error(`${error?.response?.data?.error.errors}`);
-                    toast.error(`Неверные данные`);
-                } else {
-                    toast.error(`Проблемы с сервером, попробуйте позже`);
-                }
+                toast.error(`${error?.response?.data?.errors}`);
+
+                // if (error?.response?.data?.error?.errors) {
+                //     // toast.error(`${error?.response?.data?.error.errors}`);
+                //     toast.error(`Неверные данные`);
+                // } else {
+                //     toast.error(`Проблемы с сервером, попробуйте позже`);
+                // }
             });
     };
     return (
@@ -51,8 +53,8 @@ export default function SignIn() {
             <div className={styles.wrapper}>
                 <Formik
                     initialValues={{
-                        email: "O.liGo.Rr@ya.ru",
-                        password: "O.liGo.Rr@ya.ru",
+                        email: "O.liGo.R@ya.ru",
+                        password: "O.liGo.R@ya.ru",
                     }}
                     validate={(values) => {
                         const errors = {};

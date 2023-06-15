@@ -5,11 +5,13 @@ import Image from "next/image";
 import DefaultButton from "../UI/defaultButton/defaultButton";
 import { useRouter } from "next/router";
 import images from "../../constants/images";
-import instance from "../../instanceAxios";
 import { setCookie, deleteCookie } from "cookies-next";
 import Input from "../UI/input/input";
 import Spacer from "../UI/spacer/spacer";
 import useMediaQuery from "../../Hooks/useMediaQuery";
+// import instance from "../../pages/api/instance";
+import instance from "../../instanceAxios";
+// import instance from "../../instanceAxiosMiddleware";
 
 export default function HeaderMenu() {
     const router = useRouter();
@@ -52,29 +54,34 @@ export default function HeaderMenu() {
             setIsSocialsActive(id);
         }
     };
-
+    const [isAuthorization, setIsAuthorization] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     async function fetchUserProfile() {
         try {
             // const response = await axios.get("/api/axiosMiddleware/getUser");
             const response = await instance.get("/api/profile.json");
+
             console.log("auth", response);
-            setCookie("myspot_jwt2222", response?.headers?.authorization);
+            // setCookie("myspot_jwt2222", response?.headers?.authorization);
 
             // const data = response.data.data;
-            const data = response.data;
-            setIsAuthorization(true);
-            setNoAuthLoader(false);
+            const data = response?.data;
+            data && setIsLoading(false);
+            !data && setIsAuthorization(false);
+            console.log(data?.avatar);
             setGetUserData({
-                nickname: data?.nickname,
+                nickname:
+                    data?.nickname === null
+                        ? `User ${data.id}`
+                        : data?.nickname,
                 avatar: data?.avatar?.url,
                 tg: !data?.tg ? "" : data?.tg,
                 vk: !data?.vk ? "" : data?.vk,
                 score: data?.score,
             });
-            socialItems[0].url = data.tg;
-            socialItems[1].url = data.vk;
+            socialItems[0].url = data?.tg;
+            socialItems[1].url = data?.vk;
         } catch (error) {
-            setNoAuthLoader(false);
             console.log("errorLOL", error);
         }
     }
@@ -82,8 +89,6 @@ export default function HeaderMenu() {
         fetchUserProfile();
     }, [router]);
 
-    const [isAuthorization, setIsAuthorization] = useState(false);
-    const [noAuthLoader, setNoAuthLoader] = useState(true);
     const [isNickNameChange, setIsNickNameChange] = useState(false);
     const [isAvatarChange, setIsAvatarChange] = useState(false);
     const [avatarPic, setAvatarPic] = useState();
@@ -113,7 +118,7 @@ export default function HeaderMenu() {
             .put("/api/profile/update", { user })
             .then(function (response) {
                 console.log("response", response);
-                setCookie("myspot_jwt2222", response?.headers?.authorization);
+                // setCookie("myspot_jwt2222", response?.headers?.authorization);
             })
             .catch(function (error) {
                 console.log("error", error);
@@ -128,7 +133,7 @@ export default function HeaderMenu() {
             .post("/api/profile/upload_avatar", formData)
             .then(function (response) {
                 console.log("response", response);
-                setCookie("myspot_jwt2222", response?.headers?.authorization);
+                // setCookie("myspot_jwt2222", response?.headers?.authorization);
             })
             .catch(function (error) {
                 console.log("error", error);
@@ -145,13 +150,15 @@ export default function HeaderMenu() {
             if (avatarPic !== undefined && !isEmptyObject(newPutUserData)) {
                 await updateProfile(newPutUserData)();
                 await updateAvatar();
+                router.reload();
             } else if (avatarPic !== undefined) {
-                updateAvatar();
+                await updateAvatar();
+                router.reload();
             } else if (!isEmptyObject(newPutUserData)) {
-                updateProfile(newPutUserData)();
+                await updateProfile(newPutUserData)();
+                router.reload();
             } else {
             }
-            router.reload();
         } catch (error) {
             console.log(error);
         }
@@ -172,14 +179,9 @@ export default function HeaderMenu() {
     };
 
     return (
-        <div
-            className={cn(
-                styles.wrapper,
-                styles[!isAuthorization && "no_auth"]
-            )}
-        >
+        <div className={cn(styles.wrapper, styles[isLoading && "no_auth"])}>
             <div className={cn("main__wrapper", styles.container)}>
-                {noAuthLoader ? (
+                {!isLoading ? (
                     ""
                 ) : (
                     <>

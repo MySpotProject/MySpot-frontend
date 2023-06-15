@@ -11,23 +11,24 @@ export default function SendComment({ id }) {
         await instance
             .post(
                 `/api/spot/${id}/post_comment`,
-                { content },
-                {
-                    headers: {
-                        Authorization: getCookie("myspot_jwt2222"),
-                    },
-                }
+                { content }
+                // {
+                //     headers: {
+                //         Authorization: getCookie("myspot_jwt2222"),
+                //     },
+                // }
             )
             .then(function (response) {
                 console.log(response);
-
-                if (response === undefined) {
-                    toast.error(`Вы уже оствили комментарий`);
-                }
+                setContent("");
             })
             .catch(function (error) {
                 console.log(error);
-                toast.error(`Ошибка АНДЕФАЙН)))`);
+                // if (error?.response?.data && !error?.response?.data?.errors) {
+                //     toast.error(`Вы уже оствили комментарий`);
+                // }
+                toast.error(`${error?.response?.data}`);
+                toast.error(`${error?.response?.data?.errors}`);
             });
     };
     return (

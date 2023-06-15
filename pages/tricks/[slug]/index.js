@@ -17,20 +17,21 @@ import { motion } from "framer-motion";
 import Slider from "../../../components/Slider/slider";
 
 export default function index({ trick, isLoading, tricks }) {
-    const mockCards = [
-        {
-            src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
-        },
-        {
-            src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
-        },
-        {
-            src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
-        },
-        {
-            src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
-        },
-    ];
+    // const mockCards = [
+    //     {
+    //         src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
+    //     },
+    //     {
+    //         src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
+    //     },
+    //     {
+    //         src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
+    //     },
+    //     {
+    //         src: "https://i.ytimg.com/vi/BwdpuzD3Wcs/maxresdefault.jpg",
+    //     },
+    // ];
+    console.log("trick", trick);
     console.log("tricks", tricks);
     const mob768 = useMediaQuery(768);
     const [isLoadingState, setIsLoadingState] = useState(true);
@@ -84,13 +85,14 @@ export default function index({ trick, isLoading, tricks }) {
                 <h1 className={styles.title}>{trick.title} —</h1>
                 <div className={styles.slider}>
                     <Slider
-                        images={mockCards}
+                        spot={true}
+                        images={trick?.images}
                         perView={
-                            mockCards?.length === 1
+                            trick?.images?.length === 1
                                 ? 1
-                                : mockCards?.length === 2
+                                : trick?.images?.length === 2
                                 ? 2
-                                : mob768 && mockCards?.length > 2
+                                : mob768 && trick?.images?.length > 2
                                 ? 2
                                 : 3
                         }
@@ -104,7 +106,7 @@ export default function index({ trick, isLoading, tricks }) {
                     {tricks.map((item) => (
                         <TutorialCard
                             // image={item?.images}
-                            image={mockCards[0].src}
+                            image={item?.images[0]?.url}
                             title={item?.title}
                             slug={item?.slug}
                         />

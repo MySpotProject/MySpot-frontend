@@ -32,11 +32,10 @@ export default function SignUpFrom() {
             <div className={styles.wrapper}>
                 <Formik
                     initialValues={{
-                        name: "kostamen",
-                        nickname: "kostamen2",
                         email: "",
                         password: "",
                         policy: false,
+                        confirm_success_url: "https://my-spot.ru",
                     }}
                     validate={(values) => {
                         const errors = {};

@@ -4,9 +4,13 @@ import images from "../../constants/images";
 import Image from "next/image";
 
 const item = [
-    { image: images.tg, url: "https://vk.com", type: "link" },
-    { image: images.vk, url: "https://vk.com", type: "link" },
-    { image: images.email, url: "https://vk.com", type: "link" },
+    { image: images.tg, url: "https://t.me/MySpotCommunity", type: "link" },
+    { image: images.vk, url: "https://vk.com/myspotcommunity", type: "link" },
+    {
+        image: images.email,
+        url: "mailto:my.spot615upport@yandex.ru",
+        type: "link",
+    },
 ];
 
 export default function Footer() {

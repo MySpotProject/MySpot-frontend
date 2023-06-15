@@ -7,8 +7,10 @@ module.exports = {
             "klike.net",
             "localhost",
             "konstabx.beget.tech",
+            "api.my-spot.online",
         ],
     },
+
     // api: {
     //     bodyParser: false,
     // },
