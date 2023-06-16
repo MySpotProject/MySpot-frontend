@@ -55,6 +55,7 @@ export default function Slider({ images, perView, id, spot, isLoading }) {
                                 <Image
                                     src={spot ? item?.url : item?.src}
                                     fill="cover"
+                                    placeholder={<ShimmerEffect />}
                                 />
                             </SwiperSlide>
                         ))}

@@ -13,6 +13,7 @@ import axios from "axios";
 import images from "../../constants/images";
 import SetRating from "../SetRating/setRating";
 import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
+import instance from "../../instanceAxios";
 
 export default function MarkPopup({ id, title, score }) {
     const router = useRouter();
@@ -26,7 +27,7 @@ export default function MarkPopup({ id, title, score }) {
         cookie?.length === 0 || cookie === undefined
             ? setCookieState(false)
             : setCookieState(true);
-        const response = await axios.get(
+        const response = await instance.get(
             process.env.NEXT_PUBLIC_API + `/api/spot/${id}.json`
         );
         setSelectedSpot(response.data);
@@ -49,6 +50,8 @@ export default function MarkPopup({ id, title, score }) {
             { name: "slide_elements", value: selectedSpot?.slide },
         ]);
     }, [selectedSpot]);
+
+    console.log("figurefigurefigure", figure);
 
     return (
         <div
@@ -73,7 +76,7 @@ export default function MarkPopup({ id, title, score }) {
                             setPopupOpen(false);
                         }}
                     >
-                        X
+                        ✕
                     </p>
                 )}
                 <p className={styles.spot__score}>
@@ -101,36 +104,31 @@ export default function MarkPopup({ id, title, score }) {
                                 ) : (
                                     false
                                 )}
-
                                 <p>{selectedSpot?.address}</p>
-                                {selectedSpot?.author &&
-                                    selectedSpot?.author?.avatar?.url && (
-                                        <>
-                                            <p>&nbsp; • &nbsp;</p>
-                                            <div
-                                                className={cn(
-                                                    styles.user__image,
-                                                    styles.user__image_small
-                                                )}
-                                            >
-                                                <Image
-                                                    src={
-                                                        selectedSpot?.author
-                                                            ?.avatar?.url
-                                                    }
-                                                    alt={
-                                                        selectedSpot?.author
-                                                            ?.nickname
-                                                    }
-                                                    fill="cover"
-                                                />
-                                            </div>
-                                            &nbsp;
-                                            {/* <p className={styles.user}>
-                                            {selectedSpot?.author?.nickname}
-                                        </p> */}
-                                        </>
-                                    )}
+                                <p>&nbsp; • &nbsp;</p>
+                                {selectedSpot?.author?.avatar?.url && (
+                                    <div
+                                        className={cn(
+                                            styles.user__image,
+                                            styles.user__image_small
+                                        )}
+                                    >
+                                        <Image
+                                            src={
+                                                selectedSpot?.author?.avatar
+                                                    ?.url
+                                            }
+                                            alt={selectedSpot?.author?.nickname}
+                                            fill="cover"
+                                        />
+                                    </div>
+                                )}
+                                &nbsp;
+                                <p className={styles.user}>
+                                    {selectedSpot?.author?.nickname === ""
+                                        ? `User ${selectedSpot?.author?.id}`
+                                        : selectedSpot?.author?.nickname}
+                                </p>
                             </div>
                         </div>
                         <div className={styles.about__right}>
@@ -146,7 +144,7 @@ export default function MarkPopup({ id, title, score }) {
                                                 <p
                                                     className={
                                                         styles[
-                                                            !item?.value &&
+                                                            item?.value &&
                                                                 "active"
                                                         ]
                                                     }
@@ -195,12 +193,6 @@ export default function MarkPopup({ id, title, score }) {
                                 userRatings={selectedSpot?.rating}
                             />
                             <SendComment id={id} />
-                            {/* <div className={styles.write_message}>
-                                <input value={"Привет ну и говно"} />
-                                <button>
-                                    <p>{">"}</p>
-                                </button>
-                            </div> */}
                         </>
                     )}
                 </div>

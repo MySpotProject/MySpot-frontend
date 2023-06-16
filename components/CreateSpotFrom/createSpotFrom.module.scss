@@ -11,8 +11,14 @@
     z-index: 4000000;
     overflow: auto;
     padding-bottom: 84px;
+    @media (min-width: 1025px) and (max-width: 1537px) and (-webkit-min-device-pixel-ratio: 1.25) {
+        zoom: 0.75;
+    }
     & > * > button {
         width: 100%;
+    }
+    @media (max-width: 768px) {
+        width: 70vw;
     }
 }
 .checkBoxes {

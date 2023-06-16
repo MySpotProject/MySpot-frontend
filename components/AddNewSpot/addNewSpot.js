@@ -4,6 +4,7 @@ import DefaultButton from "../UI/defaultButton/defaultButton";
 import CreateSpotFrom from "../CreateSpotFrom/createSpotFrom";
 import { CSSTransition } from "react-transition-group";
 import animationStyles from "./animation.module.scss";
+import MyContext from "../../context/formCloseContext";
 
 export default function AddNewSpot({ latlnd }) {
     const [newSpot, setNewSpot] = useState(false);
@@ -70,10 +71,12 @@ export default function AddNewSpot({ latlnd }) {
                 onEnter={() => setAddNewSpot(true)}
                 onExited={() => setAddNewSpot(false)}
             >
-                <div className={styles.spotPopup} ref={popupRef}>
-                    <p>.</p>
-                    <CreateSpotFrom latlnd={latlnd} close={setAddNewSpot} />
-                </div>
+                <MyContext.Provider value={{ addNewSpot, setAddNewSpot }}>
+                    <div className={styles.spotPopup} ref={popupRef}>
+                        <p>.</p>
+                        <CreateSpotFrom latlnd={latlnd} close={setAddNewSpot} />
+                    </div>
+                </MyContext.Provider>
             </CSSTransition>
         </>
     );

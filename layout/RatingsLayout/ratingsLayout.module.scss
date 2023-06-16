@@ -8,12 +8,22 @@
     gap: 12px;
     align-items: center;
     position: relative;
-    @media (max-width: 580px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         border: none;
+        padding: 0 0 24px 0;
     }
     & .middle {
         align-self: flex-end;
+        width: 50%;
+        @media (max-width: 880px) {
+            width: 40%;
+        }
+        @media (max-width: 768px) {
+            text-align: center;
+            align-self: center;
+            width: 100%;
+        }
         & .spotUserName {
             // align-self: self-end;
             @media (max-width: 580px) {
@@ -47,6 +57,10 @@
         align-self: flex-start;
         text-align: right;
         flex: 1;
+        @media (max-width: 768px) {
+            align-self: center;
+            text-align: center;
+        }
         @media (max-width: 580px) {
             align-self: center;
             flex: auto;
@@ -59,13 +73,19 @@
         height: 194px;
         // background-color: gray;
         position: relative;
-        @media (max-width: 580px) {
-            width: calc(194px / 1.2);
-            height: calc(194px / 1.2);
+        @media (max-width: 768px) {
+            height: calc(248px) !important;
         }
+        // @media (max-width: 580px) {
+        //     width: calc(194px / 1.2);
+        //     height: calc(194px);
+        // }
     }
     & .slider {
         width: 294px !important;
+        @media (max-width: 768px) {
+            width: 100% !important;
+        }
     }
     & ul {
         margin: 0;
@@ -95,6 +115,7 @@
     }
     & .middle {
         align-self: flex-end;
+        width: 100% !important;
         & .spotUserName {
             // align-self: self-end;
             @media (max-width: 580px) {
@@ -173,7 +194,11 @@
     position: absolute;
     right: 4%;
     top: 4%;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 900;
     font-family: "Regular";
+}
+
+.score_baloon {
+    transform: translateY(50%);
 }

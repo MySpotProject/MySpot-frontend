@@ -53,8 +53,8 @@ export default function SignIn() {
             <div className={styles.wrapper}>
                 <Formik
                     initialValues={{
-                        email: "O.liGo.R@ya.ru",
-                        password: "O.liGo.R@ya.ru",
+                        email: "",
+                        password: "",
                     }}
                     validate={(values) => {
                         const errors = {};

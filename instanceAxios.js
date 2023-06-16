@@ -15,7 +15,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
     (response) => {
         // console.log(getCookie("myspot_jwt2222"));
-        setCookie("myspot_jwt2222", response?.headers?.headers);
+        // setCookie("myspot_jwt2222", response?.headers?.headers);
         if (response.headers.authorization) {
             setCookie("myspot_jwt2222", response?.headers?.authorization, {
                 path: "/",
@@ -27,11 +27,9 @@ instance.interceptors.response.use(
         }
         return response;
     },
-    // console.log(getCookie("myspot_jwt2222")),
     (error) => {
         console.log(error);
-        deleteCookie("myspot_jwt2222");
-        if (error.response) {
+        if (error.response.status === 401) {
             deleteCookie("myspot_jwt2222");
             // window.location.href = "/login";
         }

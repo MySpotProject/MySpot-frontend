@@ -7,6 +7,9 @@
     right: 12px;
     width: max-content;
     height: max-content;
+    @media (min-width: 1025px) and (max-width: 1537px) and (-webkit-min-device-pixel-ratio: 1.25) {
+        zoom: 0.75;
+    }
 }
 .buttons {
 }

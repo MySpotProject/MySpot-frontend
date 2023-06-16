@@ -8,8 +8,13 @@ import { Field, Formik } from "formik";
 import axios from "axios";
 import instance from "../../instanceAxios";
 import { setCookie, getCookie } from "cookies-next";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import MyContext from "../../context/formCloseContext";
 
 export default function CreateSpotFrom({ latlnd }) {
+    const { addNewSpot, setAddNewSpot } = useContext(MyContext);
+
     const inputFilesREF = useRef(null);
     const [imageFiles, setImageFiles] = useState([]);
 
@@ -25,7 +30,7 @@ export default function CreateSpotFrom({ latlnd }) {
         let formData = new FormData();
         formData.append("spot[title]", values.title);
         formData.append("spot[description]", values.description);
-        formData.append("spot[address]", "asdasdasd");
+        formData.append("spot[address]", "Найти на я.картах");
         formData.append("spot[lat]", latlnd[0]);
         formData.append("spot[lng]", latlnd[1]);
         formData.append("spot[pools]", getFigureValue(values.figures, 0));
@@ -51,11 +56,20 @@ export default function CreateSpotFrom({ latlnd }) {
             //     },
             // })
             .then(function (response) {
-                setCookie("myspot_jwt2222", response?.headers?.authorization);
-                console.log(response);
+                // setCookie("myspot_jwt2222", response?.headers?.authorization);
+                console.log(response?.data?.length);
+                if (response?.data?.length === 1) {
+                    // toast.error(`${response?.data}`);
+                    toast.error(`Загрузите изображение`);
+                } else {
+                    toast.success(`Спот отправлен на модерацию`);
+                    setAddNewSpot(false);
+                }
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error(`${error?.response?.data?.errors}`);
+                setAddNewSpot(false);
             });
     };
 
@@ -63,8 +77,8 @@ export default function CreateSpotFrom({ latlnd }) {
         <div className={styles.aside}>
             <Formik
                 initialValues={{
-                    title: "SPOT",
-                    description: "DESCR",
+                    title: "СКЕЙТ-ПАРК",
+                    description: "",
                     // lat: latlnd[0],
                     // lng: latlnd[1],
                     figures: [

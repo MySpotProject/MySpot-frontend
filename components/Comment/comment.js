@@ -4,6 +4,7 @@ import Image from "next/image";
 import useFormattedDate from "../../Hooks/useFormattedDate";
 import images from "../../constants/images";
 import RatingsLayout from "../../layout/RatingsLayout/ratingsLayout";
+import cn from "classnames";
 
 export default function Comment({ comments, userRatings }) {
     const [currentComments, setCurrentComments] = useState(5);
@@ -15,16 +16,16 @@ export default function Comment({ comments, userRatings }) {
     console.log("userRatings", userRatings);
     console.log("comments", comments);
 
-    const getRatingByUserId = (userId) =>
-        userRatings?.find((rating) => rating?.user_id === userId)?.rating;
+    // const getRatingByUserId = (userId) =>
+    //     userRatings?.find((rating) => rating?.user_id === userId)?.rating;
 
     const [popOverUser, setPopOverUser] = useState(false);
     const [selectedComment, setSelectedComment] = useState();
     const handleCommentClick = (comment) => {
         setPopOverUser(true);
         setSelectedComment(comment);
-        console.log("selectedCommentselectedComment", selectedComment);
     };
+    console.log("selectedCommentselectedComment", selectedComment);
 
     return (
         <>
@@ -32,7 +33,13 @@ export default function Comment({ comments, userRatings }) {
                 {/* {isLoading && <ShimmerEffect height={80} />} */}
                 {comments?.slice(0, currentComments)?.map((item) => (
                     <>
-                        <div key={item?.id} className={styles.comments__item}>
+                        <div
+                            key={item?.id}
+                            className={cn(
+                                styles.comments__item,
+                                styles[popOverUser && "popOverOpen"]
+                            )}
+                        >
                             <div
                                 className={styles.user}
                                 onClick={() => handleCommentClick(item)}
@@ -51,14 +58,12 @@ export default function Comment({ comments, userRatings }) {
                                 )}
                                 <p>
                                     &nbsp;
-                                    {item?.nickname === null
+                                    {item?.nickname === ""
                                         ? `User ${item?.user_id}`
                                         : item?.nickname}
                                 </p>
                                 {(() => {
-                                    const num = getRatingByUserId(
-                                        item?.user_id
-                                    );
+                                    const num = item?.rating;
                                     if (num) {
                                         const ratingArr = [];
                                         for (let i = 1; i <= num; i++) {
@@ -89,11 +94,17 @@ export default function Comment({ comments, userRatings }) {
                         <RatingsLayout
                             baloon={true}
                             name={
-                                !selectedComment?.nickname &&
-                                `User ${selectedComment?.user_id}`
+                                !selectedComment?.nickname
+                                    ? `User ${selectedComment?.user_id}`
+                                    : selectedComment?.nickname
                             }
-                            avatar={selectedComment?.avatar}
+                            avatar={selectedComment?.avatar?.url}
+                            score={selectedComment?.score}
                             closeFn={() => setPopOverUser(false)}
+                            socialItems={[
+                                selectedComment?.tg,
+                                selectedComment?.vk,
+                            ]}
                         />
                     </div>
                 )}

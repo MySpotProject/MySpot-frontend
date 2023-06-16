@@ -2,8 +2,10 @@ import React from "react";
 import styles from "./tutorialCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import useMediaQuery from "../../Hooks/useMediaQuery";
 
 export default function TutorialCard({ image, title, descr, slug }) {
+    const mob980 = useMediaQuery(980);
     const [transform, setTransform] = React.useState({
         rotationX: 0,
         rotationY: 0,
@@ -25,19 +27,29 @@ export default function TutorialCard({ image, title, descr, slug }) {
 
     return (
         <Link href={slug} className={styles.wrapper}>
-            <div
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                style={{
-                    transform: `rotateX(${transform.rotationX}deg) rotateY(${transform.rotationY}deg)`,
-                }}
-            >
-                <div className={styles.container}>
-                    <h2>{title}</h2>
-                    <Image src={image} alt={`${title}`} fill="cover" />
+            {mob980 ? (
+                <div>
+                    <div className={styles.container}>
+                        <h2>{title}</h2>
+                        <Image src={image} alt={`${title}`} fill="cover" />
+                    </div>
+                    {/* <p>{descr}</p> */}
                 </div>
-                {/* <p>{descr}</p> */}
-            </div>
+            ) : (
+                <div
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    style={{
+                        transform: `rotateX(${transform.rotationX}deg) rotateY(${transform.rotationY}deg)`,
+                    }}
+                >
+                    <div className={styles.container}>
+                        <h2>{title}</h2>
+                        <Image src={image} alt={`${title}`} fill="cover" />
+                    </div>
+                    {/* <p>{descr}</p> */}
+                </div>
+            )}
         </Link>
     );
 }

@@ -11,6 +11,11 @@
     z-index: 20;
     font-family: HumaneLight;
     font-size: 36px;
+    @media (min-width: 1025px) and (max-width: 1537px) and (-webkit-min-device-pixel-ratio: 1.25) {
+        min-height: 98px;
+        max-height: 98px;
+    }
+
     @media (max-width: 480px) {
         min-height: 64px;
         max-height: 64px;
@@ -35,6 +40,9 @@
         align-items: center;
         width: 100%;
         z-index: 20;
+        @media (min-width: 1025px) and (max-width: 1537px) and (-webkit-min-device-pixel-ratio: 1.25) {
+            zoom: 0.75;
+        }
         * > {
             cursor: pointer;
         }

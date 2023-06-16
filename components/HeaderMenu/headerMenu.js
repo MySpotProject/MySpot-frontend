@@ -71,9 +71,7 @@ export default function HeaderMenu() {
             console.log(data?.avatar);
             setGetUserData({
                 nickname:
-                    data?.nickname === null
-                        ? `User ${data.id}`
-                        : data?.nickname,
+                    data?.nickname === "" ? `User ${data.id}` : data?.nickname,
                 avatar: data?.avatar?.url,
                 tg: !data?.tg ? "" : data?.tg,
                 vk: !data?.vk ? "" : data?.vk,
@@ -82,7 +80,7 @@ export default function HeaderMenu() {
             socialItems[0].url = data?.tg;
             socialItems[1].url = data?.vk;
         } catch (error) {
-            console.log("errorLOL", error);
+            console.log("errorAUTH", error);
         }
     }
     useEffect(() => {
@@ -284,7 +282,7 @@ export default function HeaderMenu() {
                                                 });
                                             }}
                                         >
-                                            X
+                                            ✕
                                         </p>
                                     </>
                                 )}

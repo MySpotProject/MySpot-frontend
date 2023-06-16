@@ -6,9 +6,11 @@ import { useRouter } from "next/router";
 import useWindowSize from "Hooks/useWindowSize";
 import Head from "next/head";
 import { motion } from "framer-motion";
+import useMediaQuery from "../Hooks/useMediaQuery";
 
 export default function HomePage() {
     // console.log("credentials", data);
+    const mob768 = useMediaQuery(768);
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault();
@@ -58,23 +60,34 @@ export default function HomePage() {
                 />
             </Head>
             <div className={styles.wrapper}>
-                <div
-                    className={styles.backGround}
-                    style={{
-                        transform: `translate(${moveBackX}, ${moveBackY})`,
-                        transformStyle: "preserve-3d",
-                    }}
-                ></div>
-                <div className={styles.main} onClick={handleClick}>
-                    <Image
-                        src={images.logo}
-                        alt="Logo"
-                        style={{
-                            transform: `translate(${moveCenterX}, ${moveCenterY})`,
-                            transformStyle: "preserve-3d",
-                        }}
-                    />
-                </div>
+                {mob768 ? (
+                    <>
+                        <div className={styles.backGround}></div>
+                        <div className={styles.main} onClick={handleClick}>
+                            <Image src={images.logo} alt="Logo" />
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div
+                            className={styles.backGround}
+                            style={{
+                                transform: `translate(${moveBackX}, ${moveBackY})`,
+                                transformStyle: "preserve-3d",
+                            }}
+                        ></div>
+                        <div className={styles.main} onClick={handleClick}>
+                            <Image
+                                src={images.logo}
+                                alt="Logo"
+                                style={{
+                                    transform: `translate(${moveCenterX}, ${moveCenterY})`,
+                                    transformStyle: "preserve-3d",
+                                }}
+                            />
+                        </div>
+                    </>
+                )}
             </div>
         </motion.div>
     );

@@ -10,8 +10,10 @@ import "swiper/css/scrollbar";
 import images from "../../constants/images";
 import cn from "classnames";
 import ShimmerEffect from "../../components/UI/ShimmerEffect/shimmerEffect";
+import Slider from "../../components/Slider/slider";
 
 export default function RatingsLayout({
+    id,
     spotImages,
     avatar,
     name,
@@ -42,7 +44,7 @@ export default function RatingsLayout({
         <div className={cn(styles.wrapper, styles[baloon && "popOverSpot"])}>
             {baloon && (
                 <div className={styles.close} onClick={closeFn}>
-                    X
+                    {/* X */}✕
                 </div>
             )}
             {avatar && (
@@ -52,28 +54,12 @@ export default function RatingsLayout({
             )}
             {spotImages && (
                 <div className={cn(styles.image, styles.slider)}>
-                    <Swiper
-                        className={cn(styles.image, styles.slider)}
-                        spaceBetween={0}
-                        slidesPerView={1}
-                        navigation
-                    >
-                        {/* {isLoadingState && (
-                        <SwiperSlide>
-                            <ShimmerEffect height={400} />
-                        </SwiperSlide>
-                    )} */}
-                        {spotImages?.map((item, i) => (
-                            <SwiperSlide>
-                                <Image
-                                    src={item.url}
-                                    alt={`${name}`}
-                                    fill="cover"
-                                    placeholder={<ShimmerEffect />}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    <Slider
+                        perView={1}
+                        spot={true}
+                        images={spotImages}
+                        id={id}
+                    />
                 </div>
             )}
             <div className={styles.middle}>
@@ -88,13 +74,14 @@ export default function RatingsLayout({
                                 {item.url && (
                                     <li key={i}>
                                         <a
+                                            style={{ zIndex: 100 }}
                                             target="_blank"
-                                            href={item.url}
+                                            href={item?.url}
                                             className={styles.socials_icons}
                                         >
                                             <Image
-                                                src={item.image}
-                                                alt={item.url}
+                                                src={item?.image}
+                                                alt={item?.url}
                                             />
                                         </a>
                                     </li>
@@ -110,7 +97,12 @@ export default function RatingsLayout({
                 </div>
             )}
             {score && (
-                <div className={styles.score}>
+                <div
+                    className={cn(
+                        styles.score,
+                        styles[baloon && "score_baloon"]
+                    )}
+                >
                     <p>{score} PTS</p>
                 </div>
             )}

@@ -3,18 +3,12 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
 import Spacer from "../../../components/UI/spacer/spacer";
-import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import ShimmerEffect from "../../../components/UI/ShimmerEffect/shimmerEffect";
-import Image from "next/image";
 import TutorialCard from "../../../components/TutorialCard/tutorialCard";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
 import { motion } from "framer-motion";
 import Slider from "../../../components/Slider/slider";
+import { shuffle } from "lodash";
 
 export default function index({ trick, isLoading, tricks }) {
     // const mockCards = [
@@ -42,6 +36,12 @@ export default function index({ trick, isLoading, tricks }) {
             setIsLoadingState(false);
         }
     }, [isLoading]);
+
+    // const currentTrickId = trick?.id;
+    // const filteredTricks = tricks.filter(
+    //     (trick) => trick.id !== currentTrickId
+    // );
+    // const shuffledTricks = shuffle(filteredTricks);
 
     return (
         <motion.div className={styles.wrapper}>
@@ -103,7 +103,7 @@ export default function index({ trick, isLoading, tricks }) {
                 <Spacer size={"xl"} />
                 <h1>ЕЩЁ ТРЮКИ —</h1>
                 <div className={styles.anotherTricks}>
-                    {tricks.map((item) => (
+                    {tricks?.slice(0, 3)?.map((item) => (
                         <TutorialCard
                             // image={item?.images}
                             image={item?.images[0]?.url}
@@ -129,7 +129,7 @@ export async function getServerSideProps({ params }) {
     return {
         props: {
             trick: trick,
-            tricks: tricks.slice(0, 3),
+            tricks: tricks,
             isLoading: false,
         },
     };

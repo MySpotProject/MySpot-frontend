@@ -73,36 +73,29 @@ export default function index({ data }) {
                 );
                 const myCoords = await geolocation.getPosition();
 
-                // const points = spots.map((lnglat, i) => ({
-                //     type: "Feature",
-                //     id: i,
-                //     geometry: { coordinates: lnglat.coords },
-                //     properties: { name: "Point of issue of orders" },
-                //     ...[lnglat],
-                // }));
+                const points = spots.map((lnglat, i) => ({
+                    type: "Feature",
+                    id: i,
+                    geometry: { coordinates: lnglat.coords },
+                    properties: { name: "Point of issue of orders" },
+                    ...lnglat,
+                }));
 
-                // const cluster = (coordinates, items) => (
-                //     <YMapMarker coordinates={coordinates}>
-                //         <p className={styles.spot__mark}>{items.length}</p>
-                //     </YMapMarker>
-                // );
+                const cluster = (coordinates, items) => (
+                    <YMapMarker coordinates={coordinates}>
+                        <p className={styles.spot__mark}>{items.length}</p>
+                    </YMapMarker>
+                );
 
-                // const marker = (item) => (
-                //     <YMapMarker coordinates={item.coords}>
-                //         <MarkPopup
-                //             title={item?.title}
-                //             score={item?.score}
-                //             coords={item?.coords}
-                //             descr={item?.descr}
-                //             image={item?.image}
-                //             street={item?.street}
-                //             user={item?.user}
-                //             figures={item?.figures}
-                //             comments={item?.comments}
-                //             user_image={item?.user_image}
-                //         />
-                //     </YMapMarker>
-                // );
+                const marker = (item) => (
+                    <YMapMarker coordinates={item.coords}>
+                        <MarkPopup
+                            id={item.id}
+                            title={item?.title}
+                            score={item?.ratings_avg}
+                        />
+                    </YMapMarker>
+                );
 
                 setYMaps(() => (
                     <YMap
@@ -112,7 +105,7 @@ export default function index({ data }) {
                                 : myCoords.coords,
                             zoom: getZoom,
                         }}
-                        camera={{ tilt: 6, azimuth: 0, duration: 0 }}
+                        camera={{ tilt: 0, azimuth: 0, duration: 10 }}
                         ref={map}
                     >
                         <YMapDefaultSchemeLayer />
@@ -130,7 +123,7 @@ export default function index({ data }) {
                             onActionEnd={GetCenterCoords}
                         />
 
-                        {spots?.map((item) => (
+                        {/* {spots?.map((item) => (
                             <YMapMarker
                                 coordinates={[item.coords[0], item.coords[1]]}
                             >
@@ -140,13 +133,15 @@ export default function index({ data }) {
                                     score={item?.ratings_avg}
                                 />
                             </YMapMarker>
-                        ))}
-                        {/* <YMapClusterer
+                        ))} */}
+
+                        <YMapClusterer
                             method={clusterByGrid({ gridSize: 164 })}
                             features={points}
                             marker={marker}
                             cluster={cluster}
-                        /> */}
+                        />
+
                         <YMapControls position="bottom right">
                             <YMapGeolocationControl />
                         </YMapControls>
@@ -179,6 +174,7 @@ export default function index({ data }) {
                 <meta property="og:title" content="MY SPOT" key="title" />
             </Head>
             <div
+                className={styles.map}
                 style={{ width: "100vw", height: "100vh", overflow: "hidden" }}
             >
                 <AddNewSpot latlnd={getCenterCoords} />

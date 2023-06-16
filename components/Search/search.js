@@ -10,7 +10,7 @@ export default function Search({ data }) {
     const onChange = (e) => {
         setValue(e.target.value);
     };
-
+    console.log("datadatadatadata", data);
     return (
         <div className={styles.wrapper}>
             <Input placeholder="Поиск" value={value} onChange={onChange} />
@@ -29,7 +29,10 @@ export default function Search({ data }) {
                             href={"tricks/" + item.slug}
                         >
                             <div className={styles.dropDown_container}>
-                                <Image src={item.image} fill="cover" />
+                                <Image
+                                    src={item?.images[0]?.url}
+                                    fill="cover"
+                                />
                                 <p className={styles.lol}>{item?.title}</p>
                             </div>
                         </Link>
