@@ -55,16 +55,16 @@ export default function HomePage() {
         leftWrapper.current.addEventListener("mouseleave", mouseLeaveLeft);
         rightWrapper.current.addEventListener("mousemove", handleMouseMoveRight);
         rightWrapper.current.addEventListener("mouseleave", mouseLeaveRight);
-        return () => {
-            if (leftWrapper.current) {
-                leftWrapper.current.removeEventListener("mousemove", handleMouseMoveLeft);
-                leftWrapper.current.removeEventListener("mouseleave", mouseLeaveLeft);
-            }
-            if (rightWrapper.current) {
-                rightWrapper.current.removeEventListener("mousemove", handleMouseMoveRight);
-                rightWrapper.current.removeEventListener("mouseleave", mouseLeaveRight);
-            }
-        };
+        // return () => {
+        //     if (leftWrapper.current) {
+        //         leftWrapper.current.removeEventListener("mousemove", handleMouseMoveLeft);
+        //         leftWrapper.current.removeEventListener("mouseleave", mouseLeaveLeft);
+        //     }
+        //     if (rightWrapper.current) {
+        //         rightWrapper.current.removeEventListener("mousemove", handleMouseMoveRight);
+        //         rightWrapper.current.removeEventListener("mouseleave", mouseLeaveRight);
+        //     }
+        // };
     }, [leftX, leftY, rightX, rightY]);
 
     const moveLeftBackX = -leftX / 80 + "px";
@@ -98,7 +98,7 @@ export default function HomePage() {
                     <>
                         <div className={styles.main_wrapper_left} ref={leftWrapper} onClick={handleClick}>
                             <div className={styles.background}>
-                                <div>
+                                <div className={styles.ponos}>
                                     <Image
                                         style={{
                                             transform: `translate(${moveLeftBackX}, ${moveLeftBackY})`,
